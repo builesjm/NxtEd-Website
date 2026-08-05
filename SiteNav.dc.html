@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
+  <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
+</helmet>
+<div style="position:sticky;top:0;z-index:50;background:var(--color-white);border-bottom:1px solid var(--border-hairline);">
+  <div style="max-width:1160px;margin:0 auto;padding:12px clamp(20px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <a href="Home.dc.html" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="assets/nxted-logo.png" alt="NxtEd Tutoring" style="height:46px;display:block;">
+    </a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap;">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+        <a href="{{ l.href }}" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:{{ l.color }};" style-hover="color:var(--color-marigold-hover);">{{ l.label }}</a>
+      </sc-for>
+      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,44px">Book a free session</x-import>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:90},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;about&quot;,&quot;subjects&quot;,&quot;tutors&quot;,&quot;pricing&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.active ?? '';
+    const items = [
+      ['about', 'About', 'About.dc.html'],
+      ['subjects', 'Subjects', 'Subjects.dc.html'],
+      ['tutors', 'Tutors', 'Tutors.dc.html'],
+      ['pricing', 'Pricing', 'Pricing.dc.html']
+    ];
+    return {
+      links: items.map(([id, label, href]) => ({
+        label, href,
+        color: id === a ? 'var(--color-marigold-600)' : 'var(--color-espresso)'
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

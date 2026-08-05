@@ -1,0 +1,223 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/marketing/**",
+              "components/navigation/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Montserrat|Source Serif 4))/i]",
+        "message": "Font not provided by the design system. Available: Montserrat, Source Serif 4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|tone|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: children, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:teal|marigold|inverse)$/]",
+        "message": "<Badge> tone must be one of 'teal' | 'marigold' | 'inverse'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|onClick|href|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, onClick, href, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|on-dark)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'on-dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|children|style|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: icon, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ContactCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|tone|key|ref|className|style|children)$/]",
+        "message": "<ContactCard> doesn't accept that prop. Declared props: label, value, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ContactCard'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:teal|marigold)$/]",
+        "message": "<ContactCard> tone must be one of 'teal' | 'marigold'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Hero'] > JSXAttribute > JSXIdentifier[name!=/^(?:eyebrow|title|subtitle|primaryCta|secondaryCta|key|ref|className|style|children)$/]",
+        "message": "<Hero> doesn't accept that prop. Declared props: eyebrow, title, subtitle, primaryCta, secondaryCta."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconTile'] > JSXAttribute > JSXIdentifier[name!=/^(?:glyph|size|key|ref|className|style|children)$/]",
+        "message": "<IconTile> doesn't accept that prop. Declared props: glyph, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:links|cta|logoSrc|key|ref|className|style|children)$/]",
+        "message": "<NavBar> doesn't accept that prop. Declared props: links, cta, logoSrc."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "ContactCard": {
+        "replaces": []
+      },
+      "Hero": {
+        "replaces": []
+      },
+      "IconTile": {
+        "replaces": []
+      },
+      "NavBar": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-gradient",
+      "--accent-primary",
+      "--accent-primary-hover",
+      "--accent-secondary",
+      "--border-hairline",
+      "--border-inverse",
+      "--color-espresso",
+      "--color-marigold-400",
+      "--color-marigold-500",
+      "--color-marigold-600",
+      "--color-marigold-hover",
+      "--color-parchment",
+      "--color-parchment-alt",
+      "--color-sand",
+      "--color-stone",
+      "--color-teal-500",
+      "--color-teal-glow",
+      "--color-teal-tint",
+      "--color-white",
+      "--font-body",
+      "--font-display",
+      "--font-ui",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--radius-xl",
+      "--shadow-card",
+      "--shadow-elevated",
+      "--shadow-elevated-inverse",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--surface-card",
+      "--surface-inverse",
+      "--surface-marigold-wash",
+      "--surface-page",
+      "--surface-page-alt",
+      "--surface-teal-wash",
+      "--text-inverse",
+      "--text-inverse-muted",
+      "--text-primary",
+      "--text-secondary"
+    ],
+    "tokenKinds": {
+      "--color-marigold-400": "color",
+      "--color-marigold-500": "color",
+      "--color-marigold-600": "color",
+      "--color-marigold-hover": "color",
+      "--color-teal-500": "color",
+      "--color-teal-tint": "color",
+      "--color-teal-glow": "color",
+      "--color-espresso": "color",
+      "--color-stone": "color",
+      "--color-parchment": "color",
+      "--color-parchment-alt": "color",
+      "--color-sand": "color",
+      "--color-white": "color",
+      "--surface-page": "color",
+      "--surface-page-alt": "color",
+      "--surface-card": "color",
+      "--surface-inverse": "color",
+      "--surface-teal-wash": "color",
+      "--surface-marigold-wash": "color",
+      "--text-primary": "font",
+      "--text-secondary": "font",
+      "--text-inverse": "font",
+      "--text-inverse-muted": "font",
+      "--accent-gradient": "color",
+      "--accent-primary": "color",
+      "--accent-primary-hover": "color",
+      "--accent-secondary": "color",
+      "--border-hairline": "color",
+      "--border-inverse": "color",
+      "--shadow-card": "shadow",
+      "--shadow-elevated": "shadow",
+      "--shadow-elevated-inverse": "shadow",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--font-ui": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-pill": "radius"
+    },
+    "fontFamilies": [
+      "Montserrat",
+      "Source Serif 4"
+    ]
+  }
+}

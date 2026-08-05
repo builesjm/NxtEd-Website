@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Our Story | NxtEd Tutoring</title>
+  <meta name="description" content="Why we started NxtEd: success isn't just knowledge. It's the habits and confidence behind it. Personalized tutoring by accomplished students.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
+  <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
+  <style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);} a{color:var(--color-marigold-600);} a:hover{color:var(--color-marigold-hover);}</style>
+</helmet>
+<div style="display:flex;flex-direction:column;min-height:100vh;background:var(--surface-page);" data-screen-label="About">
+  <dc-import name="SiteNav" active="about" hint-size="100%,72px"></dc-import>
+
+  <div style="max-width:760px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(48px,7vw,84px) clamp(24px,5vw,48px) clamp(32px,5vw,56px);display:flex;flex-direction:column;gap:22px;align-items:flex-start;">
+    <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="teal" hint-size="auto,34px">Our story</x-import>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-1px;text-wrap:balance;">Started by students, for students</h1>
+    <p style="margin:0;font-family:var(--font-body);font-size:clamp(17px,2vw,19px);line-height:1.7;color:var(--text-secondary);text-wrap:pretty;">NxtEd began with a simple observation: the students who do best aren't always the ones who study the most. They're the ones who learned <em>how</em> to study.</p>
+  </div>
+
+  <div style="max-width:760px;margin:0 auto;width:100%;box-sizing:border-box;padding:0 clamp(24px,5vw,48px) clamp(40px,6vw,64px);display:flex;flex-direction:column;gap:20px;">
+    <p style="margin:0;font-family:var(--font-body);font-size:17px;line-height:1.75;color:var(--text-primary);text-wrap:pretty;">We're a team of accomplished students who spent years helping classmates, siblings, and neighbours through the same courses we'd just aced. We kept noticing the same thing: what made the difference was rarely one more explanation of the material. It was the approach: how to break a problem down, how to prepare for a test, how to keep going when something doesn't click the first time.</p>
+    <p style="margin:0;font-family:var(--font-body);font-size:17px;line-height:1.75;color:var(--text-primary);text-wrap:pretty;">So we started NxtEd to pass that on. Every session teaches the subject, but it also teaches the habits underneath it, because those are what a student keeps when the course is over.</p>
+  </div>
+
+  <div style="background:var(--surface-card);">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,80px) clamp(24px,5vw,48px);display:flex;flex-direction:column;gap:36px;">
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
+        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="marigold" hint-size="auto,34px">Our philosophy</x-import>
+        <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,3.5vw,38px);line-height:1.1;letter-spacing:-0.5px;">What we believe</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;">
+        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
+          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Knowledge isn't enough</div>
+          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Success isn't just knowing the material. It's the study habits, problem-solving, and confidence behind it. That's what we teach.</div>
+        </div>
+        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
+          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Students learn best from students</div>
+          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">A tutor who sat in the same seat last year explains things the way a classmate would, and shows what's possible.</div>
+        </div>
+        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
+          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Confidence compounds</div>
+          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">One good session becomes a good week. Small wins stack up until a hard subject stops feeling hard.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1160px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(48px,7vw,72px) clamp(24px,5vw,48px);display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;">
+    <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(26px,3.5vw,34px);line-height:1.12;letter-spacing:-0.5px;">Meet the people behind it</h2>
+    <p style="margin:0;font-family:var(--font-body);font-size:16.5px;line-height:1.6;color:var(--text-secondary);max-width:480px;text-wrap:pretty;">Every NxtEd tutor is an accomplished student first. See who they are and what they teach.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Tutors.dc.html" hint-size="auto,48px">Meet the tutors</x-import>
+      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" variant="secondary" href="Contact.dc.html" hint-size="auto,48px">Book a free intro session</x-import>
+    </div>
+  </div>
+  <dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+</body>
+</html>

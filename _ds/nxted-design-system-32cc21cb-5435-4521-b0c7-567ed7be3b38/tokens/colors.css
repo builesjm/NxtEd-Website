@@ -1,0 +1,39 @@
+:root {
+  --color-marigold-400: #FFB03A;
+  --color-marigold-500: #FF8200;
+  --color-marigold-600: #FF7A00;
+  --color-marigold-hover: #E06A00;
+  --color-teal-500: #12A5A0;
+  --color-teal-tint: #DFF3F2;
+  --color-teal-glow: #5FE0DA;
+  --color-espresso: #241C15;
+  --color-stone: #6B665C;
+  --color-parchment: #F5F1EA;
+  --color-parchment-alt: #E7E3DA;
+  --color-sand: #EFE7D8;
+  --color-white: #FFFFFF;
+
+  --surface-page: var(--color-parchment);
+  --surface-page-alt: var(--color-parchment-alt);
+  --surface-card: var(--color-white);
+  --surface-inverse: var(--color-espresso);
+  --surface-teal-wash: rgba(18,165,160,.14);
+  --surface-marigold-wash: rgba(255,176,58,.12);
+
+  --text-primary: var(--color-espresso);
+  --text-secondary: var(--color-stone);
+  --text-inverse: var(--color-white);
+  --text-inverse-muted: #C9BFAF;
+
+  --accent-gradient: linear-gradient(135deg, var(--color-marigold-400) 0%, var(--color-marigold-600) 100%);
+  --accent-primary: var(--color-marigold-600);
+  --accent-primary-hover: var(--color-marigold-hover);
+  --accent-secondary: var(--color-teal-500);
+
+  --border-hairline: #EEE6D8;
+  --border-inverse: #3a3225;
+
+  --shadow-card: 0 18px 40px -32px rgba(90,45,0,.6);
+  --shadow-elevated: 0 24px 60px -34px rgba(0,0,0,0.4);
+  --shadow-elevated-inverse: 0 24px 60px -34px rgba(0,0,0,0.5);
+}
