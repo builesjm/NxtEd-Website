@@ -14,25 +14,54 @@
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
+  <style>
+    .nx-nav{position:sticky;top:0;z-index:50;background:var(--color-white);border-bottom:1px solid var(--border-hairline);}
+    .nx-nav-inner{position:relative;max-width:1160px;margin:0 auto;padding:12px clamp(20px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .nx-logo{display:flex;align-items:center;text-decoration:none;flex:none;}
+    .nx-logo img{height:46px;display:block;}
+    .nx-links{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);}
+    .nx-link{font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;transition:color .15s ease;}
+    .nx-link:hover{color:var(--color-marigold-hover);}
+    .nx-burger{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--border-hairline);border-radius:12px;background:var(--color-white);color:var(--color-espresso);font-size:19px;line-height:1;cursor:pointer;}
+    .nx-burger:hover{border-color:var(--color-marigold-400);color:var(--color-marigold-600);}
+
+    @media (max-width:820px){
+      .nx-nav-inner{padding:10px clamp(18px,4vw,24px);}
+      .nx-logo img{height:36px;}
+      .nx-burger{display:inline-flex;}
+      .nx-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+        background:var(--color-white);border-bottom:1px solid var(--border-hairline);
+        padding:6px clamp(18px,4vw,24px) 18px;box-shadow:var(--shadow-card);}
+      .nx-links.nx-open{display:flex;}
+      .nx-link{padding:14px 2px;border-bottom:1px solid var(--border-hairline);font-size:16px;}
+      .nx-cta{margin-top:14px;}
+      .nx-cta a,.nx-cta button{width:100%;box-sizing:border-box;}
+    }
+  </style>
 </helmet>
-<div style="position:sticky;top:0;z-index:50;background:var(--color-white);border-bottom:1px solid var(--border-hairline);">
-  <div style="max-width:1160px;margin:0 auto;padding:12px clamp(20px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-    <a href="Home.dc.html" style="display:flex;align-items:center;text-decoration:none;">
-      <img src="assets/nxted-logo.png" alt="NxtEd Tutoring" style="height:46px;display:block;">
+<div class="nx-nav">
+  <div class="nx-nav-inner">
+    <a class="nx-logo" href="Home.dc.html">
+      <img src="assets/nxted-logo.png" alt="NxtEd Tutoring">
     </a>
-    <div style="display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap;">
+    <button class="nx-burger" type="button" onClick="{{ toggle }}" aria-label="{{ menuLabel }}" aria-expanded="{{ expanded }}" aria-controls="nx-primary-nav">{{ burgerGlyph }}</button>
+    <div class="nx-links {{ openClass }}" id="nx-primary-nav">
       <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
-        <a href="{{ l.href }}" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:{{ l.color }};" style-hover="color:var(--color-marigold-hover);">{{ l.label }}</a>
+        <a class="nx-link" href="{{ l.href }}" style="color:{{ l.color }};" aria-current="{{ l.current }}">{{ l.label }}</a>
       </sc-for>
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,44px">Book a free session</x-import>
+      <span class="nx-cta">
+        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,44px">Book a free session</x-import>
+      </span>
     </div>
   </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:90},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;about&quot;,&quot;subjects&quot;,&quot;tutors&quot;,&quot;pricing&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
+  state = { open: false };
   renderVals() {
     const a = this.props.active ?? '';
+    const open = this.state.open;
     const items = [
       ['about', 'About', 'About.dc.html'],
       ['subjects', 'Subjects', 'Subjects.dc.html'],
@@ -40,9 +69,15 @@ class Component extends DCLogic {
       ['pricing', 'Pricing', 'Pricing.dc.html']
     ];
     return {
+      openClass: open ? 'nx-open' : '',
+      expanded: open ? 'true' : 'false',
+      burgerGlyph: open ? '✕' : '☰',
+      menuLabel: open ? 'Close menu' : 'Open menu',
+      toggle: () => this.setState({ open: !this.state.open }),
       links: items.map(([id, label, href]) => ({
         label, href,
-        color: id === a ? 'var(--color-marigold-600)' : 'var(--color-espresso)'
+        color: id === a ? 'var(--color-marigold-600)' : 'var(--color-espresso)',
+        current: id === a ? 'page' : undefined
       }))
     };
   }

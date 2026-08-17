@@ -43,17 +43,17 @@
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
             <label style="display:flex;flex-direction:column;gap:7px;">
               <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Name</span>
-              <input name="name" value="{{ fName }}" onChange="{{ onField }}" placeholder="Parent or student name" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
+              <input name="name" autocomplete="name" value="{{ fName }}" onChange="{{ onField }}" placeholder="Parent or student name" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
             </label>
             <label style="display:flex;flex-direction:column;gap:7px;">
               <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Email</span>
-              <input name="email" type="email" value="{{ fEmail }}" onChange="{{ onField }}" placeholder="you@example.com" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
+              <input name="email" type="email" autocomplete="email" value="{{ fEmail }}" onChange="{{ onField }}" placeholder="you@example.com" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
             </label>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
             <label style="display:flex;flex-direction:column;gap:7px;">
               <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Phone <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--color-stone);">(optional)</span></span>
-              <input name="phone" type="tel" value="{{ fPhone }}" onChange="{{ onField }}" placeholder="(555) 555-5555" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
+              <input name="phone" type="tel" autocomplete="tel" value="{{ fPhone }}" onChange="{{ onField }}" placeholder="(555) 555-5555" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
             </label>
             <label style="display:flex;flex-direction:column;gap:7px;">
               <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Grade level</span>
@@ -67,14 +67,23 @@
             </label>
           </div>
           <label style="display:flex;flex-direction:column;gap:7px;">
+            <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Sessions <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--color-stone);">(online or in person)</span></span>
+            <select name="format" value="{{ fFormat }}" onChange="{{ onField }}" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;appearance:auto;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);">
+              <option value="">No preference</option>
+              <option value="online">Online</option>
+              <option value="in-person">In person</option>
+              <option value="either">Either works</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px;">
             <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);">Message</span>
             <textarea name="message" value="{{ fMessage }}" onChange="{{ onField }}" rows="5" placeholder="What subject or course? What's been hard? Anything else we should know?" style="box-sizing:border-box;width:100%;background:#fff;border:1px solid var(--color-parchment-alt);border-radius:12px;padding:13px 16px;font-family:var(--font-body);font-size:16px;color:var(--text-primary);outline:none;resize:vertical;min-height:110px;" style-focus="border-color:var(--color-marigold-400);box-shadow:0 0 0 3px var(--surface-marigold-wash);"></textarea>
           </label>
           <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
-            <div style="font-family:var(--font-display);font-weight:600;font-size:13.5px;color:var(--color-marigold-hover);">{{ error }}</div>
+            <div role="alert" style="font-family:var(--font-display);font-weight:600;font-size:13.5px;line-height:1.5;color:var(--color-marigold-hover);">{{ error }}</div>
           </sc-if>
           <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" on-click="{{ submit }}" hint-size="auto,48px">Send message</x-import>
+            <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" on-click="{{ submit }}" style="{{ submitStyle }}" hint-size="auto,48px">{{ submitLabel }}</x-import>
             <span style="font-family:var(--font-body);font-size:13.5px;color:var(--text-secondary);">The first session is free. No commitment.</span>
           </div>
         </div>
@@ -108,23 +117,94 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
+// ---------------------------------------------------------------------------
+// WHERE BOOKING REQUESTS GO:  nxt.ed.tutors@gmail.com
+//
+// Every completed form on this page is emailed to that inbox, with the
+// student's name, email, phone, grade level, online/in-person preference,
+// and message. Hitting Reply in Gmail replies to the parent directly.
+//
+// The access key below is what binds this form to nxt.ed.tutors@gmail.com. The
+// destination deliberately can't be set from this page, so nobody can edit the
+// site's JavaScript to redirect your leads somewhere else. This key is meant to
+// live in public page source — it only permits sending to the address above.
+//
+// To change the destination address, register the new one at web3forms.com and
+// swap the key here. If the key is ever removed, the form does NOT fake a
+// success — it tells visitors to call or email instead.
+// ---------------------------------------------------------------------------
+const WEB3FORMS_ACCESS_KEY = '253408ab-7cbf-477c-8c10-b12602a5b9e8';
+
+const CONTACT_FALLBACK = 'Sorry, that didn’t send. Please call or text (226) 388-9789, or email nxt.ed.tutors@gmail.com and we’ll get right back to you.';
+
+const GRADE_LABELS = {
+  'elementary': 'Elementary',
+  'high-school': 'High school',
+  'university': 'University',
+  'other': 'Other / not sure'
+};
+
+const FORMAT_LABELS = {
+  'online': 'Online',
+  'in-person': 'In person',
+  'either': 'Either works'
+};
+
 class Component extends DCLogic {
-  state = { name: '', email: '', phone: '', grade: '', message: '', submitted: false, error: '' };
+  state = { name: '', email: '', phone: '', grade: '', format: '', message: '', submitted: false, sending: false, error: '' };
   renderVals() {
     const s = this.state;
     return {
-      fName: s.name, fEmail: s.email, fPhone: s.phone, fGrade: s.grade, fMessage: s.message,
+      fName: s.name, fEmail: s.email, fPhone: s.phone, fGrade: s.grade, fFormat: s.format, fMessage: s.message,
       submitted: s.submitted, notSubmitted: !s.submitted, error: s.error,
+      sending: s.sending,
+      submitLabel: s.sending ? 'Sending…' : 'Send message',
+      submitStyle: s.sending ? { opacity: 0.65, cursor: 'wait' } : {},
       onField: (e) => this.setState({ [e.target.name]: e.target.value, error: '' }),
-      submit: () => {
+      submit: async () => {
+        if (s.sending) return;
+
         if (!s.name.trim() || !s.email.trim() || !s.message.trim()) {
           this.setState({ error: 'Please fill in name, email, and message.' });
           return;
         }
-        // Backend wiring goes here (form values are in this.state).
-        this.setState({ submitted: true });
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim())) {
+          this.setState({ error: 'That email address doesn’t look right. Please check it.' });
+          return;
+        }
+        if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'PASTE_YOUR_ACCESS_KEY_HERE') {
+          console.error('[NxtEd] Contact form is not configured: set WEB3FORMS_ACCESS_KEY in Contact.dc.html.');
+          this.setState({ error: CONTACT_FALLBACK });
+          return;
+        }
+
+        this.setState({ sending: true, error: '' });
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              access_key: WEB3FORMS_ACCESS_KEY,
+              subject: 'New session request from ' + s.name.trim(),
+              from_name: 'NxtEd Tutoring website',
+              replyto: s.email.trim(),
+              name: s.name.trim(),
+              email: s.email.trim(),
+              phone: s.phone.trim() || 'Not provided',
+              grade: GRADE_LABELS[s.grade] || 'Not specified',
+              format: FORMAT_LABELS[s.format] || 'No preference',
+              message: s.message.trim()
+            })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.success) throw new Error(data.message || 'Request failed');
+          this.setState({ submitted: true, sending: false });
+        } catch (err) {
+          console.error('[NxtEd] Contact form submission failed:', err);
+          this.setState({ sending: false, error: CONTACT_FALLBACK });
+        }
       },
-      reset: () => this.setState({ name: '', email: '', phone: '', grade: '', message: '', submitted: false, error: '' })
+      reset: () => this.setState({ name: '', email: '', phone: '', grade: '', format: '', message: '', submitted: false, sending: false, error: '' })
     };
   }
 }
