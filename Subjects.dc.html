@@ -11,46 +11,47 @@
   <title>Subjects &amp; Grades | NxtEd Tutoring</title>
   <meta name="description" content="All subjects, elementary through university. Personalized tutoring by accomplished students. Find help for any course.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/colors.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/typography.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
-  <style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);} a{color:var(--color-marigold-600);} a:hover{color:var(--color-marigold-hover);}</style>
+  <style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);} a{color:var(--accent-text);text-decoration:underline;text-decoration-color:var(--accent-underline);text-decoration-thickness:2px;text-underline-offset:3px;} a:hover{text-decoration-color:var(--accent-underline-hover);}</style>
 </helmet>
 <div style="display:flex;flex-direction:column;min-height:100vh;background:var(--surface-page);" data-screen-label="Subjects">
   <dc-import name="SiteNav" active="subjects" hint-size="100%,72px"></dc-import>
 
-  <div style="max-width:1160px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(48px,7vw,80px) clamp(24px,5vw,48px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:20px;align-items:flex-start;">
-    <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="teal" hint-size="auto,34px">Subjects &amp; grades</x-import>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-1px;text-wrap:balance;">Every grade. Every subject.</h1>
+  <div style="max-width:1640px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(30px,3.6vw,46px) clamp(20px,3.2vw,44px) clamp(18px,2.4vw,26px);display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
+    <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-secondary);">Subjects &amp; grades</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3.9vw,42px);line-height:1.08;letter-spacing:-1px;text-wrap:balance;">Every grade. Every subject.</h1>
     <p style="margin:0;font-family:var(--font-body);font-size:clamp(17px,2vw,19px);line-height:1.65;color:var(--text-secondary);max-width:600px;text-wrap:pretty;">NxtEd covers all subjects at every level. Below are the most requested. If a course isn't listed, just ask.</p>
   </div>
 
-  <div style="max-width:1160px;margin:0 auto;width:100%;box-sizing:border-box;padding:0 clamp(24px,5vw,48px) clamp(48px,7vw,72px);display:flex;flex-direction:column;gap:28px;">
+  <div style="max-width:1640px;margin:0 auto;width:100%;box-sizing:border-box;padding:0 clamp(20px,3.2vw,44px) clamp(32px,3.8vw,50px);display:flex;flex-direction:column;gap:18px;">
     <sc-for list="{{ bands }}" as="band" hint-placeholder-count="3">
       <div style="background:var(--surface-card);border-radius:var(--radius-lg,20px);padding:clamp(28px,4vw,40px);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:20px;">
         <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="{{ band.tone }}" hint-size="auto,34px">{{ band.label }}</x-import>
+          <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-secondary);">{{ band.label }}</span>
           <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(22px,3vw,28px);letter-spacing:-0.5px;">{{ band.title }}</div>
           <div style="font-family:var(--font-body);font-size:16px;line-height:1.6;color:var(--text-secondary);max-width:640px;text-wrap:pretty;">{{ band.blurb }}</div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <sc-for list="{{ band.subjects }}" as="s" hint-placeholder-count="6">
-            <span style="font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--text-primary);background:var(--surface-page);border-radius:var(--radius-pill,999px);padding:9px 18px;">{{ s }}</span>
+            <span style="font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--text-primary);background:var(--surface-quiet);border-radius:var(--radius-pill,999px);padding:9px 18px;">{{ s }}</span>
           </sc-for>
         </div>
       </div>
     </sc-for>
-    <div style="background:var(--surface-teal-wash);border:1px solid var(--color-teal-500);border-radius:var(--radius-md,16px);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+    <div style="background:var(--surface-card);border:1px solid var(--border-quiet);border-radius:var(--radius-md,16px);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
       <div style="font-family:var(--font-body);font-size:16px;line-height:1.55;color:var(--text-primary);text-wrap:pretty;"><strong style="font-family:var(--font-display);">Don't see a subject?</strong> These are just the most requested. NxtEd covers all subjects. Ask about yours.</div>
       <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,48px">Ask about a subject</x-import>
     </div>
   </div>
 
   <div style="background:var(--color-espresso);margin-top:auto;">
-    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:clamp(40px,6vw,56px) clamp(24px,5vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div style="max-width:1640px;margin:0 auto;box-sizing:border-box;padding:clamp(26px,3.2vw,40px) clamp(20px,3.2vw,44px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.5vw,32px);color:#fff;line-height:1.1;">Try it free first</div>
         <div style="font-family:var(--font-body);font-size:16px;color:var(--text-inverse-muted);text-wrap:pretty;">Every new student's first session is free, for any subject, any grade.</div>

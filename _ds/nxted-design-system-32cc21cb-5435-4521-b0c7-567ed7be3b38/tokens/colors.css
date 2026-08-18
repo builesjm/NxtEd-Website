@@ -1,8 +1,20 @@
 :root {
+  /* The brand orange in the logo is a GRADIENT: #FFB03A -> #FF7A00, confirmed
+     from the Figma vector source (not guessed from a PNG). Across the "Nxt"
+     letters it actually renders about #FF9E26 at the N to #FF8209 at the t.
+
+     #FFA129 is the flat UI stand-in for that range, and it is the only orange
+     used anywhere outside the logo files themselves. The gradient stays in the
+     logo; interface elements get the flat colour, because gradient fills spread
+     across a UI read as generated design. Don't reintroduce the 400/500 steps
+     below — they exist only so the design-system specimen cards resolve.
+
+     Because this shade is light, it carries DARK text, never white — espresso on
+     #FFA129 is ~9:1, while white on it is ~1.8:1 and illegible. */
   --color-marigold-400: #FFB03A;
   --color-marigold-500: #FF8200;
-  --color-marigold-600: #FF7A00;
-  --color-marigold-hover: #E06A00;
+  --color-marigold-600: #FFA129;
+  --color-marigold-hover: #F08A00;
   --color-teal-500: #12A5A0;
   --color-teal-tint: #DFF3F2;
   --color-teal-glow: #5FE0DA;
@@ -13,27 +25,69 @@
   --color-sand: #EFE7D8;
   --color-white: #FFFFFF;
 
-  --surface-page: var(--color-parchment);
-  --surface-page-alt: var(--color-parchment-alt);
+  /* White-first. The parchment beige is kept as a token for the design-system
+     specimen cards, but the site itself is white — beige on beige made every
+     section read as another filled box and the pages felt cluttered.
+     Separation now comes from hairline rules, not background colour. */
+  --surface-page: var(--color-white);
+  --surface-page-alt: var(--color-white);
   --surface-card: var(--color-white);
   --surface-inverse: var(--color-espresso);
+
+  /* The only non-white surface left: a barely-there tint for small chips. */
+  --surface-quiet: #F6F5F2;
+  --surface-quiet-alt: #EFEDE8;
+
+  /* Warmth, used as RHYTHM rather than as wallpaper. The old layout painted the
+     whole page beige and then floated white cards on it, so every section read
+     as another box and the page felt cluttered. These two tones are meant for
+     whole-section fills only — alternate them with plain white so the page has
+     a beat. Never put a warm card on a warm band. */
+  --surface-warm: #FBF8F3;   /* soft cream section fill */
+  --surface-warm-deep: #F4EFE6;  /* one step down, for insets on cream */
   --surface-teal-wash: rgba(18,165,160,.14);
-  --surface-marigold-wash: rgba(255,176,58,.12);
+  --surface-marigold-wash: rgba(255,122,0,.14);
 
   --text-primary: var(--color-espresso);
   --text-secondary: var(--color-stone);
   --text-inverse: var(--color-white);
   --text-inverse-muted: #C9BFAF;
 
-  --accent-gradient: linear-gradient(135deg, var(--color-marigold-400) 0%, var(--color-marigold-600) 100%);
+  /* Single-accent system: marigold is the only colour that competes for
+     attention, and it is reserved for actions. Structure is carried by
+     espresso and the warm neutrals. Teal is retained above only so the
+     design-system specimen cards still resolve — do not use it in pages. */
+
+  /* Flat, not a gradient. Kept under the original name so every existing
+     usage flattens at once; gradient fills read as generated design. */
+  --accent-gradient: var(--color-marigold-600);
+
   --accent-primary: var(--color-marigold-600);
   --accent-primary-hover: var(--color-marigold-hover);
-  --accent-secondary: var(--color-teal-500);
+  --accent-secondary: var(--color-espresso);
 
-  --border-hairline: #EEE6D8;
+  /* Marigold NEVER carries text on a light surface: #FF7A00 on white is only
+     2.6:1, well under WCAG AA's 4.5:1. Rather than darkening the orange (which
+     dulls the brand), links use espresso text with a marigold underline — the
+     colour still reads as the accent, but the text stays legible at 16.8:1.
+     Marigold appears as a FILL only. On espresso, --color-marigold-400 is fine. */
+  --accent-text: var(--color-espresso);
+  --accent-text-hover: var(--color-espresso);
+  --accent-underline: var(--color-marigold-600);
+  --accent-underline-hover: var(--color-marigold-hover);
+
+  /* (--surface-quiet is defined once, above, with the surface tokens.) */
+  --border-quiet: #E7E4DE;
+
+  /* Neutral, not beige — a warm-tinted rule on a white page reads as dirt. */
+  --border-hairline: #E7E4DE;
   --border-inverse: #3a3225;
 
-  --shadow-card: 0 18px 40px -32px rgba(90,45,0,.6);
-  --shadow-elevated: 0 24px 60px -34px rgba(0,0,0,0.4);
-  --shadow-elevated-inverse: 0 24px 60px -34px rgba(0,0,0,0.5);
+  /* On a white page, white cards can't be defined by a soft drop shadow — it
+     just looks smudged. --shadow-card is now a 1px ring, so every card that
+     already used it gets a clean hairline border with no markup changes.
+     Kept under the original name so the swap is global. */
+  --shadow-card: 0 0 0 1px #E7E4DE;
+  --shadow-elevated: 0 0 0 1px #E7E4DE;
+  --shadow-elevated-inverse: 0 0 0 1px var(--border-inverse);
 }

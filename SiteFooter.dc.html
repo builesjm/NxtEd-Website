@@ -15,28 +15,31 @@
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
 </helmet>
-<div style="background:var(--color-espresso);padding:clamp(40px,6vw,60px) clamp(24px,5vw,64px) 32px;">
-  <div style="max-width:1160px;margin:0 auto;display:flex;flex-direction:column;gap:32px;">
+<!-- Horizontal padding lives on the inner element, not here, so the footer
+     lines up with the nav logo and the page headlines on one shared grid. -->
+<div style="background:var(--color-espresso);padding:clamp(34px,4vw,52px) 0 28px;">
+  <div style="box-sizing:border-box;max-width:1640px;margin:0 auto;padding:0 clamp(20px,3.2vw,44px);display:flex;flex-direction:column;gap:26px;">
     <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start;">
       <div style="display:flex;flex-direction:column;gap:12px;max-width:340px;">
-        <div style="font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-0.5px;line-height:1;"><span style="color:var(--color-marigold-400);">Nxt</span><span style="color:#fff;">Ed</span><span style="font-weight:700;font-size:12px;letter-spacing:0.28em;color:var(--text-inverse-muted);margin-left:10px;">TUTORING</span></div>
+        <!-- The real lockup, reversed for the dark ground — this used to be the
+             wordmark rebuilt in Montserrat, which didn't match the actual logo. -->
+        <img src="assets/nxted-logo-light.svg" alt="NxtEd Tutoring" style="width:190px;height:auto;display:block;">
         <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-inverse-muted);">Personalized tutoring by accomplished students.</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-inverse-muted);">Explore</div>
         <div style="display:flex;flex-direction:column;gap:9px;">
-          <a href="About.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">About</a>
-          <a href="Subjects.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">Subjects &amp; Grades</a>
-          <a href="Tutors.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">Meet the Tutors</a>
-          <a href="Pricing.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">Pricing</a>
+          <a href="About.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-600);">About</a>
+          <a href="Subjects.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-600);">Subjects &amp; Grades</a>
+          <a href="Tutors.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-600);">Meet the Tutors</a>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-inverse-muted);">Get in touch</div>
         <div style="display:flex;flex-direction:column;gap:9px;">
-          <a href="tel:+12263889789" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">(226) 388-9789</a>
-          <a href="mailto:nxt.ed.tutors@gmail.com" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-400);">nxt.ed.tutors@gmail.com</a>
-          <a href="Contact.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:var(--color-marigold-400);" style-hover="color:var(--color-marigold-hover);">Book a free intro session</a>
+          <a href="tel:+12263889789" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-600);">(226) 388-9789</a>
+          <a href="mailto:nxt.ed.tutors@gmail.com" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:#fff;" style-hover="color:var(--color-marigold-600);">nxt.ed.tutors@gmail.com</a>
+          <a href="Contact.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;color:var(--color-marigold-600);" style-hover="color:var(--color-marigold-hover);">Book a free intro session</a>
         </div>
       </div>
     </div>

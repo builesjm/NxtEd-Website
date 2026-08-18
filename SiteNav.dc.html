@@ -16,22 +16,31 @@
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
   <style>
     .nx-nav{position:sticky;top:0;z-index:50;background:var(--color-white);border-bottom:1px solid var(--border-hairline);}
-    .nx-nav-inner{position:relative;max-width:1160px;margin:0 auto;padding:12px clamp(20px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    /* Must match .nx-wrap on the pages exactly, or the logo drifts out of line
+       with the headline below it. Same max-width, same padding, same box model. */
+    .nx-nav-inner{position:relative;box-sizing:border-box;max-width:1640px;margin:0 auto;padding:14px clamp(20px,3.2vw,44px);display:flex;align-items:center;justify-content:space-between;gap:16px;}
     .nx-logo{display:flex;align-items:center;text-decoration:none;flex:none;}
-    .nx-logo img{height:46px;display:block;}
+    /* The logo is the brand statement in this header, so it is set large enough
+       to actually read: at 80px the NxtEd wordmark stands ~43px tall and the
+       TUTORING line lands at 8px, which is a real reading size rather than a
+       texture. Shrinking this back below ~62px is what makes TUTORING mushy. */
+    .nx-logo img{height:80px;display:block;}
     .nx-links{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);}
     .nx-link{font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;transition:color .15s ease;}
-    .nx-link:hover{color:var(--color-marigold-hover);}
+    .nx-link:hover{color:var(--accent-text);}
     .nx-burger{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--border-hairline);border-radius:12px;background:var(--color-white);color:var(--color-espresso);font-size:19px;line-height:1;cursor:pointer;}
-    .nx-burger:hover{border-color:var(--color-marigold-400);color:var(--color-marigold-600);}
+    .nx-burger:hover{border-color:var(--accent-text);color:var(--accent-text);}
 
     @media (max-width:820px){
-      .nx-nav-inner{padding:10px clamp(18px,4vw,24px);}
-      .nx-logo img{height:36px;}
+      /* Padding stays on the .nx-wrap value so the logo keeps sharing a left
+         edge with the headline below it. A separate mobile value drifted 2px. */
+      /* Smaller on phones — 80px would eat a quarter of a short viewport in a
+         sticky bar — but still well above the 62px legibility floor. */
+      .nx-logo img{height:64px;}
       .nx-burger{display:inline-flex;}
       .nx-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
         background:var(--color-white);border-bottom:1px solid var(--border-hairline);
-        padding:6px clamp(18px,4vw,24px) 18px;box-shadow:var(--shadow-card);}
+        padding:6px clamp(20px,3.2vw,44px) 18px;box-shadow:var(--shadow-card);}
       .nx-links.nx-open{display:flex;}
       .nx-link{padding:14px 2px;border-bottom:1px solid var(--border-hairline);font-size:16px;}
       .nx-cta{margin-top:14px;}
@@ -42,7 +51,12 @@
 <div class="nx-nav">
   <div class="nx-nav-inner">
     <a class="nx-logo" href="Home.dc.html">
-      <img src="assets/nxted-logo.png" alt="NxtEd Tutoring">
+      <!-- Full lockup, TUTORING included. It sets at ~5px tall here, which holds
+           because the letters are tracked so wide — measured at nav size, 12 of
+           its 13 stems still resolve as separate strokes, and it doubles on any
+           retina screen. The height below is what keeps it readable; don't drop
+           it back down without re-checking that line. -->
+      <img src="assets/nxted-logo.svg" alt="NxtEd Tutoring">
     </a>
     <button class="nx-burger" type="button" onClick="{{ toggle }}" aria-label="{{ menuLabel }}" aria-expanded="{{ expanded }}" aria-controls="nx-primary-nav">{{ burgerGlyph }}</button>
     <div class="nx-links {{ openClass }}" id="nx-primary-nav">
@@ -56,7 +70,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:90},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;about&quot;,&quot;subjects&quot;,&quot;tutors&quot;,&quot;pricing&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:90},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;about&quot;,&quot;subjects&quot;,&quot;tutors&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = { open: false };
   renderVals() {
@@ -65,8 +79,7 @@ class Component extends DCLogic {
     const items = [
       ['about', 'About', 'About.dc.html'],
       ['subjects', 'Subjects', 'Subjects.dc.html'],
-      ['tutors', 'Tutors', 'Tutors.dc.html'],
-      ['pricing', 'Pricing', 'Pricing.dc.html']
+      ['tutors', 'Tutors', 'Tutors.dc.html']
     ];
     return {
       openClass: open ? 'nx-open' : '',
@@ -76,7 +89,7 @@ class Component extends DCLogic {
       toggle: () => this.setState({ open: !this.state.open }),
       links: items.map(([id, label, href]) => ({
         label, href,
-        color: id === a ? 'var(--color-marigold-600)' : 'var(--color-espresso)',
+        color: id === a ? 'var(--accent-text)' : 'var(--color-espresso)',
         current: id === a ? 'page' : undefined
       }))
     };

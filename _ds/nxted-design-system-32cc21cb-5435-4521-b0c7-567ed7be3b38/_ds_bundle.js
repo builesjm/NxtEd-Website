@@ -71,8 +71,10 @@ function Button({
   };
   const variants = {
     primary: {
+      // Espresso, not white: white on marigold is only 2.6:1, below WCAG AA.
+      // Espresso on marigold is 6.3:1 and keeps the brand orange at full strength.
       background: 'var(--accent-primary)',
-      color: '#fff'
+      color: 'var(--color-espresso)'
     },
     secondary: {
       background: 'transparent',

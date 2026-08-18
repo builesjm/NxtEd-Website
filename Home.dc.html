@@ -8,154 +8,544 @@
 <body>
 <x-dc>
 <helmet>
-  <title>NxtEd Tutoring | Personalized tutoring by accomplished students</title>
-  <meta name="description" content="Personalized tutoring by accomplished students. All subjects, elementary through university. Book a free intro session.">
+  <title>NxtEd Tutoring | One-on-one tutoring, grades 1 through university</title>
+  <meta name="description" content="One-on-one tutoring from university students who recently aced the same courses. 19 subjects, grades 1 through university. Online or in person across the GTA and Niagara. First session free.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/colors.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/typography.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
-  <style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);} a{color:var(--color-marigold-600);} a:hover{color:var(--color-marigold-hover);}</style>
+  <style>
+    /* =====================================================================
+       HOME PAGE DESIGN SYSTEM
+       ---------------------------------------------------------------------
+       Three rules hold this page together. Break one and it starts to look
+       generic again:
+
+       1. TYPE   Serif (Source Serif 4) sets every headline and every number.
+                 Montserrat is UI only — buttons, labels, eyebrows, nav, chips.
+                 The all-Montserrat version read as a default startup template.
+
+       2. RHYTHM Sections alternate white / cream / white / cream. The colour
+                 belongs to the whole band, never to a card inside it. The old
+                 layout tinted the page and floated cards on top, so everything
+                 read as a box on a box — that was the clutter.
+
+       3. BOXES  Only three things are cards: the hero panel, the four reason
+                 tiles, the three tutors. Everything else is separated by
+                 hairlines and whitespace. Fewer borders = calmer page.
+       ===================================================================== */
+
+    body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);
+      -webkit-font-smoothing:antialiased;}
+    a{color:var(--accent-text);text-decoration:underline;text-decoration-color:var(--accent-underline);
+      text-decoration-thickness:2px;text-underline-offset:3px;}
+    a:hover{text-decoration-color:var(--accent-underline-hover);}
+    :focus-visible{outline:2px solid var(--accent-primary);outline-offset:3px;border-radius:4px;}
+
+    /* ---- layout grid: nav, every section and the footer share this ---- */
+    .nx-wrap{max-width:1640px;margin:0 auto;width:100%;box-sizing:border-box;
+      padding-left:clamp(20px,3.2vw,44px);padding-right:clamp(20px,3.2vw,44px);}
+    .nx-sect{padding-top:clamp(42px,4.6vw,68px);padding-bottom:clamp(42px,4.6vw,68px);}
+    .nx-band{background:var(--surface-warm);border-top:1px solid var(--border-hairline);
+      border-bottom:1px solid var(--border-hairline);}
+
+    /* ---- type ---- */
+    .nx-h1{margin:0;font-family:var(--font-body);font-weight:700;
+      font-size:clamp(34px,4.4vw,56px);line-height:1.04;letter-spacing:-1.4px;text-wrap:balance;}
+    .nx-h2{margin:0;font-family:var(--font-body);font-weight:700;
+      font-size:clamp(25px,2.7vw,36px);line-height:1.12;letter-spacing:-0.7px;text-wrap:balance;}
+    .nx-h3{margin:0;font-family:var(--font-body);font-weight:700;font-size:19px;
+      line-height:1.25;letter-spacing:-0.3px;}
+    .nx-lead{margin:0;font-family:var(--font-body);font-size:16.5px;line-height:1.6;
+      color:var(--text-secondary);max-width:62ch;text-wrap:pretty;}
+    .nx-body{margin:0;font-family:var(--font-body);font-size:15.5px;line-height:1.6;
+      color:var(--text-secondary);text-wrap:pretty;}
+    .nx-ui{font-family:var(--font-ui);font-weight:600;}
+
+    /* Eyebrow with a short marigold rule — the small repeated detail that makes
+       the sections feel like one family. */
+    .nx-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-ui);
+      font-weight:700;font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;
+      color:var(--text-secondary);}
+    .nx-eyebrow::before{content:'';flex:none;width:24px;height:2px;border-radius:2px;
+      background:var(--accent-primary);}
+    .nx-eyebrow-inv{color:var(--text-inverse-muted);}
+
+    /* Page CTAs are plain anchors rather than the design-system <x-import>
+       Button, which ships a fixed inline style and no hover or focus state.
+       These need a lift on hover, a filled-in ghost variant, and per-placement
+       sizing, so they're styled here. The nav keeps the DS Button. */
+    .nx-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      font-family:var(--font-ui);font-weight:700;font-size:15px;line-height:1;
+      padding:15px 27px;border:0;border-radius:999px;cursor:pointer;text-decoration:none;
+      background-color:var(--accent-primary);color:var(--color-espresso);
+      transition:background-color .16s ease,transform .16s ease,box-shadow .16s ease;}
+    .nx-btn:hover{background-color:var(--accent-primary-hover);transform:translateY(-1px);
+      box-shadow:0 12px 22px -12px rgba(36,28,21,.55);text-decoration:none;}
+    .nx-btn-ghost{background-color:transparent;color:var(--text-primary);
+      box-shadow:inset 0 0 0 1.6px var(--text-primary);}
+    .nx-btn-ghost:hover{background-color:var(--text-primary);color:var(--color-white);
+      box-shadow:inset 0 0 0 1.6px var(--text-primary);}
+
+    .nx-head{display:flex;flex-direction:column;gap:11px;margin-bottom:clamp(24px,2.6vw,36px);}
+    .nx-head-row{display:flex;align-items:flex-end;justify-content:space-between;
+      gap:24px;flex-wrap:wrap;}
+    .nx-more{font-family:var(--font-ui);font-weight:700;font-size:14px;white-space:nowrap;
+      color:var(--text-primary);text-decoration:none;border-bottom:2px solid var(--accent-underline);
+      padding-bottom:2px;transition:border-color .15s ease;}
+    .nx-more:hover{border-bottom-color:var(--accent-underline-hover);}
+
+    /* ---- hero ---- */
+    /* The warm wash is a radial gradient, not a filled beige box: it gives the
+       top of the page colour and depth without drawing a hard edge. */
+    .nx-hero{position:relative;overflow:hidden;
+      background:radial-gradient(1200px 560px at 78% -18%, rgba(255,161,41,.20), rgba(255,161,41,0) 62%),
+                 radial-gradient(760px 420px at 6% 8%, rgba(36,28,21,.045), rgba(36,28,21,0) 60%),
+                 var(--surface-page);}
+    .nx-hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(30px,4vw,64px);
+      align-items:center;padding-top:clamp(40px,4.6vw,68px);padding-bottom:clamp(44px,5vw,74px);}
+    .nx-hero-copy{display:flex;flex-direction:column;gap:18px;align-items:flex-start;min-width:0;}
+    .nx-cta-row{display:flex;gap:11px;flex-wrap:wrap;padding-top:4px;}
+
+    /* Overlapping monograms — real tutors, so the proof is honest. */
+    .nx-avatars{display:flex;align-items:center;}
+    .nx-av{width:36px;height:36px;border-radius:50%;background:var(--accent-primary);
+      color:var(--color-espresso);font-family:var(--font-ui);font-weight:700;font-size:12.5px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 2.5px var(--surface-page);margin-left:-9px;}
+    .nx-av:first-child{margin-left:0;}
+    .nx-proof{display:flex;align-items:center;gap:13px;flex-wrap:wrap;
+      padding-top:6px;border-top:1px solid var(--border-hairline);width:100%;margin-top:2px;}
+
+    /* Hero panel, with a tilted marigold plate behind it for depth. */
+    .nx-hero-art{position:relative;min-width:0;}
+    .nx-hero-art::before{content:'';position:absolute;left:10px;right:10px;top:16px;bottom:-12px;
+      background:var(--accent-primary);border-radius:26px;transform:rotate(-2.1deg);opacity:.9;}
+    .nx-panel{position:relative;background:var(--surface-card);border:1px solid var(--border-hairline);
+      border-radius:22px;padding:clamp(20px,2vw,26px);
+      box-shadow:0 26px 48px -30px rgba(36,28,21,.5);
+      display:flex;flex-direction:column;gap:16px;}
+    .nx-panel-top{display:flex;flex-direction:column;gap:7px;padding-bottom:15px;
+      border-bottom:1px solid var(--border-hairline);}
+    .nx-free{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+      background:var(--surface-marigold-wash);color:var(--color-espresso);border-radius:999px;
+      padding:5px 12px;font-family:var(--font-ui);font-weight:700;font-size:11.5px;
+      letter-spacing:0.12em;text-transform:uppercase;}
+    .nx-check{display:flex;align-items:flex-start;gap:11px;}
+    .nx-check svg{flex:none;width:19px;height:19px;margin-top:1px;color:var(--accent-primary);}
+
+    /* ---- stat strip ---- */
+    .nx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+    .nx-stat{padding:0 clamp(14px,1.8vw,26px);border-left:1px solid var(--border-quiet);
+      display:flex;flex-direction:column;gap:3px;}
+    .nx-stat:first-child{padding-left:0;border-left:none;}
+    .nx-stat-v{font-family:var(--font-body);font-weight:700;font-size:clamp(24px,2.4vw,31px);
+      letter-spacing:-0.8px;line-height:1.05;}
+    .nx-stat-l{font-family:var(--font-ui);font-weight:600;font-size:12.5px;line-height:1.4;
+      color:var(--text-secondary);}
+
+    /* ---- subject columns (hairlines, not cards) ---- */
+    .nx-cols{display:grid;grid-template-columns:repeat(3,1fr);}
+    .nx-col{padding:0 clamp(18px,2.2vw,34px);border-left:1px solid var(--border-hairline);
+      display:flex;flex-direction:column;gap:13px;}
+    .nx-col:first-child{padding-left:0;border-left:none;}
+    .nx-col:last-child{padding-right:0;}
+    .nx-chip{display:inline-block;font-family:var(--font-ui);font-weight:600;font-size:12.5px;
+      color:var(--text-primary);background:var(--surface-quiet);border:1px solid transparent;
+      border-radius:999px;padding:5px 12px;text-decoration:none;transition:all .15s ease;}
+    a.nx-chip:hover{background:var(--surface-marigold-wash);border-color:var(--accent-primary);}
+
+    /* ---- reason tiles ---- */
+    .nx-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,18px);}
+    .nx-tile{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;
+      padding:20px;display:flex;flex-direction:column;gap:11px;transition:transform .18s ease,box-shadow .18s ease;}
+    .nx-tile:hover{transform:translateY(-3px);box-shadow:0 16px 30px -22px rgba(36,28,21,.55);}
+    .nx-ico{flex:none;width:40px;height:40px;border-radius:12px;background:var(--surface-marigold-wash);
+      color:var(--color-espresso);display:flex;align-items:center;justify-content:center;}
+    .nx-ico svg{width:21px;height:21px;}
+
+    /* ---- tutors ---- */
+    .nx-tutors{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);}
+    .nx-tutor{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;
+      padding:22px;display:flex;flex-direction:column;gap:13px;
+      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+    .nx-tutor:hover{transform:translateY(-3px);border-color:var(--accent-primary);
+      box-shadow:0 18px 34px -24px rgba(36,28,21,.55);}
+    .nx-tutor-av{flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent-primary);
+      color:var(--color-espresso);font-family:var(--font-ui);font-weight:700;font-size:16px;
+      display:flex;align-items:center;justify-content:center;}
+    .nx-meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--border-hairline);
+      display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px;line-height:1.45;
+      color:var(--text-secondary);font-family:var(--font-body);}
+    .nx-meta dt{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:0.1em;
+      text-transform:uppercase;color:var(--text-secondary);padding-top:2px;}
+    .nx-meta dd{margin:0;color:var(--text-primary);}
+
+    /* ---- steps, joined by a dotted rule ---- */
+    .nx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+    .nx-step{position:relative;display:flex;flex-direction:column;gap:9px;align-items:flex-start;}
+    .nx-step::after{content:'';position:absolute;top:20px;left:56px;right:-32px;height:2px;
+      background:repeating-linear-gradient(90deg,var(--border-quiet) 0 5px,transparent 5px 11px);}
+    .nx-step:last-child::after{display:none;}
+    .nx-step-n{width:42px;height:42px;border-radius:50%;background:var(--accent-primary);
+      color:var(--color-espresso);font-family:var(--font-ui);font-weight:800;font-size:16px;
+      display:flex;align-items:center;justify-content:center;}
+
+    /* ---- faq: header sits beside the questions ---- */
+    .nx-faq-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(28px,4vw,64px);
+      align-items:start;}
+    .nx-faq{border-bottom:1px solid var(--border-hairline);}
+    .nx-faq:first-child{border-top:1px solid var(--border-hairline);}
+    .nx-faq summary{cursor:pointer;list-style:none;padding:16px 0;font-family:var(--font-body);
+      font-weight:700;font-size:16.5px;line-height:1.35;display:flex;justify-content:space-between;
+      gap:18px;align-items:center;transition:color .15s ease;}
+    .nx-faq summary:hover{color:var(--text-secondary);}
+    .nx-faq summary::-webkit-details-marker{display:none;}
+    .nx-faq summary::after{content:'';flex:none;width:22px;height:22px;border-radius:50%;
+      background:var(--surface-quiet);
+      background-image:linear-gradient(var(--color-espresso),var(--color-espresso)),
+                       linear-gradient(var(--color-espresso),var(--color-espresso));
+      background-size:10px 2px,2px 10px;background-position:center,center;
+      background-repeat:no-repeat;transition:transform .2s ease;}
+    .nx-faq[open] summary::after{background-size:10px 2px,0 0;transform:rotate(180deg);}
+    .nx-faq p{margin:0 0 18px;font-family:var(--font-body);font-size:15.5px;line-height:1.65;
+      color:var(--text-secondary);max-width:70ch;}
+
+    /* ---- closing cta: an inset dark card, so the page ends on a shape
+           rather than another full-bleed band butting into the footer ---- */
+    .nx-endcta{position:relative;overflow:hidden;background:var(--color-espresso);border-radius:26px;
+      padding:clamp(32px,3.6vw,52px) clamp(24px,3vw,52px);
+      display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+    .nx-endcta::before{content:'';position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(620px 320px at 88% 110%, rgba(255,161,41,.30), rgba(255,161,41,0) 65%);}
+    .nx-endcta > *{position:relative;}
+
+    @media (max-width:1080px){
+      .nx-tiles{grid-template-columns:repeat(2,1fr);}
+    }
+    @media (max-width:900px){
+      .nx-hero-grid{grid-template-columns:1fr;gap:34px;}
+      .nx-hero-art{max-width:520px;}
+      .nx-faq-grid{grid-template-columns:1fr;gap:22px;}
+      .nx-tutors{grid-template-columns:1fr;}
+      .nx-steps{grid-template-columns:1fr;gap:22px;}
+      .nx-step::after{display:none;}
+      .nx-stats{grid-template-columns:repeat(2,1fr);gap:20px 0;}
+      .nx-stat:nth-child(3){padding-left:0;border-left:none;}
+      .nx-cols{grid-template-columns:1fr;}
+      .nx-col{padding:20px 0;border-left:none;border-top:1px solid var(--border-hairline);}
+      .nx-col:first-child{padding-top:0;border-top:none;}
+    }
+    @media (max-width:560px){
+      .nx-tiles{grid-template-columns:1fr;}
+      .nx-hero-art::before{left:6px;right:6px;}
+      .nx-endcta{padding:28px 22px;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none !important;}
+      .nx-tile:hover,.nx-tutor:hover{transform:none;}
+    }
+  </style>
 </helmet>
 <div style="display:flex;flex-direction:column;min-height:100vh;background:var(--surface-page);" data-screen-label="Home">
   <sc-if value="{{ showAnnouncement }}" hint-placeholder-val="{{ false }}">
-    <div style="background:var(--color-teal-500);color:#fff;text-align:center;padding:9px 20px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:0.06em;">Now welcoming new students. The first session is free</div>
+    <div style="background:var(--color-espresso);color:#fff;text-align:center;padding:10px 20px;font-family:var(--font-ui);font-weight:600;font-size:13px;letter-spacing:.01em;">
+      <span aria-hidden="true" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent-primary);margin-right:9px;vertical-align:middle;"></span>Now taking new students · The first session is free
+    </div>
   </sc-if>
   <dc-import name="SiteNav" active="home" hint-size="100%,72px"></dc-import>
 
-  <div style="max-width:1160px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(48px,7vw,88px) clamp(24px,5vw,48px);display:flex;gap:clamp(32px,5vw,60px);align-items:center;flex-wrap:wrap;">
-    <div style="flex:1.3;min-width:300px;display:flex;flex-direction:column;gap:22px;align-items:flex-start;">
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="teal" hint-size="auto,34px">Elementary · High school · University</x-import>
-      <h1 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(38px,5.5vw,60px);line-height:1.06;letter-spacing:-1.5px;color:var(--text-primary);text-wrap:balance;">Personalized tutoring by accomplished students.</h1>
-      <p style="margin:0;font-family:var(--font-body);font-size:clamp(17px,2vw,19px);line-height:1.65;color:var(--text-secondary);max-width:540px;text-wrap:pretty;">NxtEd tutors recently aced the same courses, and they teach more than the material. Every student gets the study habits, problem-solving skills, and confidence that helped their tutor excel.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,48px">Book a free intro session</x-import>
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" variant="secondary" href="Tutors.dc.html" hint-size="auto,48px">Meet the tutors</x-import>
+  <!-- ================== HERO ================== -->
+  <div class="nx-hero">
+    <div class="nx-wrap nx-hero-grid">
+      <div class="nx-hero-copy">
+        <span class="nx-eyebrow">Grades 1–12 · University · Online &amp; in person</span>
+        <h1 class="nx-h1">Your child’s tutor sat the same exam two years ago — and aced it.</h1>
+        <p class="nx-lead" style="font-size:18px;max-width:56ch;">Every NxtEd tutor is a university student who recently took the course your child is taking now. They remember what was confusing, what the tests actually ask, and how to get through it — and they’re close enough in age that kids listen.</p>
+        <div class="nx-cta-row">
+          <a class="nx-btn" href="Contact.dc.html">Book the free first session</a>
+          <a class="nx-btn nx-btn-ghost" href="Tutors.dc.html">Meet the tutors</a>
+        </div>
+        <div class="nx-proof">
+          <span class="nx-avatars" aria-hidden="true">
+            <sc-for list="{{ tutors }}" as="t" hint-placeholder-count="3">
+              <span class="nx-av">{{ t.initials }}</span>
+            </sc-for>
+          </span>
+          <span class="nx-body" style="font-size:14.5px;">Every tutor is named on this site, with their school and background. No call centre, no stranger at the door.</span>
+        </div>
       </div>
-    </div>
-    <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:18px;">
-      <div style="background:var(--accent-gradient);border-radius:22px;padding:30px 32px;box-shadow:var(--shadow-elevated);color:#fff;">
-        <div style="font-family:var(--font-display);font-weight:800;font-size:24px;line-height:1.15;">The first session is free.</div>
-        <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.55;margin-top:10px;color:rgba(255,255,255,.92);">Meet a tutor, set goals, and see the fit before any commitment.</div>
-      </div>
-      <div style="background:var(--surface-card);border-radius:22px;padding:26px 28px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent-gradient);color:#fff;font-family:var(--font-display);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;">✓</span>
-          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">All subjects, every grade level</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent-gradient);color:#fff;font-family:var(--font-display);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;">✓</span>
-          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">One-on-one, matched to each student</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent-gradient);color:#fff;font-family:var(--font-display);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;">✓</span>
-          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">Habits and confidence that outlast the session</span>
-        </div>
-        <!-- TODO: name your specific service area here (e.g. "in person across Waterloo Region")
-             — the phone number is a 226 area code, but the site never says where you are,
-             and local searches ("math tutor near me") rank on exactly this. -->
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent-gradient);color:#fff;font-family:var(--font-display);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;">✓</span>
-          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">Online or in person, whichever suits</span>
+
+      <div class="nx-hero-art">
+        <div class="nx-panel">
+          <div class="nx-panel-top">
+            <span class="nx-free">No card required</span>
+            <div class="nx-h3" style="font-size:22px;">The first session is free — a real lesson, not a sales call.</div>
+            <p class="nx-body" style="font-size:15px;">A full one-on-one hour with the tutor we think fits your child. If it doesn’t click, tell us and we’ll match someone else.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ heroPoints }}" as="p" hint-placeholder-count="4">
+              <div class="nx-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.6l4.6 4.6L19.5 6.8"></path></svg>
+                <span class="nx-ui" style="font-size:14.5px;line-height:1.45;">{{ p }}</span>
+              </div>
+            </sc-for>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div style="background:var(--surface-card);">
-    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,80px) clamp(24px,5vw,48px);display:flex;flex-direction:column;gap:36px;">
-      <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="marigold" hint-size="auto,34px">Why Us?</x-import>
-        <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,3.5vw,38px);line-height:1.1;letter-spacing:-0.5px;">What students walk away with</h2>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;">
-        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Habits that stick</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Not just tonight's homework, but a way of studying that keeps working long after the session ends.</div>
-        </div>
-        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Confidence in class</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">The quiet confidence to raise a hand, take the test, and trust the work they put in.</div>
-        </div>
-        <div style="background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">A tutor who's been there</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Someone who sat in the same seat recently, explains it like a classmate would, and shows what's possible.</div>
-        </div>
+  <!-- ================== STAT STRIP ================== -->
+  <div class="nx-band">
+    <div class="nx-wrap" style="padding-top:clamp(22px,2.2vw,30px);padding-bottom:clamp(22px,2.2vw,30px);">
+      <div class="nx-stats">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div class="nx-stat">
+            <span class="nx-stat-v">{{ s.value }}</span>
+            <span class="nx-stat-l">{{ s.label }}</span>
+          </div>
+        </sc-for>
       </div>
     </div>
   </div>
 
-  <div style="max-width:1160px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(48px,7vw,80px) clamp(24px,5vw,48px);display:flex;flex-direction:column;gap:36px;">
-    <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="teal" hint-size="auto,34px">Subjects &amp; grades</x-import>
-      <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,3.5vw,38px);line-height:1.1;letter-spacing:-0.5px;">Every grade. Every subject.</h2>
+  <!-- ================== SUBJECTS ================== -->
+  <div class="nx-wrap nx-sect">
+    <div class="nx-head nx-head-row">
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <span class="nx-eyebrow">Subjects</span>
+        <h2 class="nx-h2">Find help in your subject</h2>
+        <p class="nx-lead">These are the courses our current tutors actually cover. If yours isn’t listed, ask — we’ll tell you honestly whether we can help.</p>
+      </div>
+      <a class="nx-more" href="Subjects.dc.html">All subjects and grades →</a>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;">
-      <div style="background:var(--surface-card);border-radius:var(--radius-lg,20px);padding:30px 28px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="marigold" hint-size="auto,34px">Elementary</x-import>
-        <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Strong foundations in reading, writing, and math, built with patience and encouragement.</div>
-        <a href="Subjects.dc.html" style="font-family:var(--font-display);font-weight:700;font-size:14px;text-decoration:none;color:var(--color-marigold-600);" style-hover="color:var(--color-marigold-hover);">See subjects →</a>
+    <div class="nx-cols">
+      <sc-for list="{{ bands }}" as="b" hint-placeholder-count="3">
+        <div class="nx-col">
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span class="nx-h3">{{ b.label }}</span>
+            <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ b.grades }}</span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <sc-for list="{{ b.subjects }}" as="s" hint-placeholder-count="7">
+              <a class="nx-chip" href="Subjects.dc.html">{{ s }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ================== WHY A STUDENT TUTOR ================== -->
+  <div class="nx-band">
+    <div class="nx-wrap nx-sect">
+      <div class="nx-head">
+        <span class="nx-eyebrow">Why a student, not an agency</span>
+        <h2 class="nx-h2">Close enough to remember. Far enough to have finished it.</h2>
+        <p class="nx-lead">Our tutors sat the same curriculum recently enough that the details are still sharp — and they’ve worked with young people before, in classrooms, camps and youth programs.</p>
       </div>
-      <div style="background:var(--surface-card);border-radius:var(--radius-lg,20px);padding:30px 28px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="marigold" hint-size="auto,34px">High school</x-import>
-        <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Course mastery and exam readiness, from algebra to calculus and everything between.</div>
-        <a href="Subjects.dc.html" style="font-family:var(--font-display);font-weight:700;font-size:14px;text-decoration:none;color:var(--color-marigold-600);" style-hover="color:var(--color-marigold-hover);">See subjects →</a>
-      </div>
-      <div style="background:var(--surface-card);border-radius:var(--radius-lg,20px);padding:30px 28px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="marigold" hint-size="auto,34px">University</x-import>
-        <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Course-specific help from tutors who recently took and aced the same classes.</div>
-        <a href="Subjects.dc.html" style="font-family:var(--font-display);font-weight:700;font-size:14px;text-decoration:none;color:var(--color-marigold-600);" style-hover="color:var(--color-marigold-hover);">See subjects →</a>
+      <div class="nx-tiles">
+        <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
+          <div class="nx-tile">
+            <span class="nx-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.icon }}"></path></svg>
+            </span>
+            <span class="nx-h3" style="font-size:17px;">{{ r.title }}</span>
+            <span class="nx-body" style="font-size:14.5px;">{{ r.body }}</span>
+          </div>
+        </sc-for>
       </div>
     </div>
   </div>
 
-  <div style="background:var(--surface-card);">
-    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,80px) clamp(24px,5vw,48px);display:flex;flex-direction:column;gap:36px;">
-      <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Badge" tone="teal" hint-size="auto,34px">How it works</x-import>
-        <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,3.5vw,38px);line-height:1.1;letter-spacing:-0.5px;">Getting started is simple</h2>
+  <!-- ================== TUTORS ================== -->
+  <div class="nx-wrap nx-sect">
+    <div class="nx-head nx-head-row">
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <span class="nx-eyebrow">The team</span>
+        <h2 class="nx-h2">The people who’ll actually be teaching</h2>
+        <p class="nx-lead">Small team, real names. You’ll know exactly who your child is meeting before the first session starts.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;">
-        <div style="display:flex;flex-direction:column;gap:16px;background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" glyph="1" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Book the free intro</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Tell us the grade, the subject, and what's been hard. The first session costs nothing.</div>
+      <a class="nx-more" href="Tutors.dc.html">See all tutors →</a>
+    </div>
+    <div class="nx-tutors">
+      <sc-for list="{{ tutors }}" as="t" hint-placeholder-count="3">
+        <div class="nx-tutor">
+          <div style="display:flex;align-items:center;gap:13px;">
+            <span class="nx-tutor-av" aria-hidden="true">{{ t.initials }}</span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0;">
+              <span class="nx-h3" style="font-size:17.5px;">{{ t.name }}</span>
+              <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
+            </span>
+          </div>
+          <p class="nx-body" style="font-size:14.5px;">{{ t.background }}</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <sc-for list="{{ t.subjects }}" as="s" hint-placeholder-count="4">
+              <span class="nx-chip" style="font-size:11.5px;padding:4px 10px;">{{ s }}</span>
+            </sc-for>
+          </div>
+          <dl class="nx-meta">
+            <dt>Teaches</dt><dd>{{ t.grades }}</dd>
+            <dt>Where</dt><dd>{{ t.area }}</dd>
+          </dl>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" glyph="2" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Meet the right tutor</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Each student is matched with a tutor who excelled in that subject and clicks with how they learn.</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;background:var(--surface-page);border-radius:var(--radius-lg,20px);padding:30px 28px;">
-          <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.IconTile" glyph="3" hint-size="58px,58px"></x-import>
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Build momentum</div>
-          <div style="font-family:var(--font-body);font-size:15.5px;line-height:1.6;color:var(--text-secondary);text-wrap:pretty;">Regular sessions turn better habits into better grades, and better grades into confidence.</div>
-        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ================== HOW IT WORKS ================== -->
+  <div class="nx-band">
+    <div class="nx-wrap nx-sect">
+      <div class="nx-head">
+        <span class="nx-eyebrow">How it works</span>
+        <h2 class="nx-h2">Three steps, and the first one costs nothing</h2>
+      </div>
+      <div class="nx-steps">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <div class="nx-step">
+            <span class="nx-step-n" aria-hidden="true">{{ s.n }}</span>
+            <span class="nx-h3">{{ s.title }}</span>
+            <span class="nx-body" style="font-size:15px;">{{ s.body }}</span>
+          </div>
+        </sc-for>
       </div>
     </div>
   </div>
 
-  <div style="background:var(--color-espresso);">
-    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,72px) clamp(24px,5vw,48px);display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
-        <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,38px);color:#fff;line-height:1.1;">Book a free intro session</div>
-        <div style="font-family:var(--font-body);font-size:17px;line-height:1.6;color:var(--text-inverse-muted);max-width:520px;text-wrap:pretty;">Meet a tutor, set goals, and see the fit. No commitment.</div>
+  <!-- ================== FAQ ================== -->
+  <div class="nx-wrap nx-sect">
+    <div class="nx-faq-grid">
+      <div class="nx-head" style="margin-bottom:0;">
+        <span class="nx-eyebrow">Questions</span>
+        <h2 class="nx-h2">What parents ask first</h2>
+        <p class="nx-lead">If yours isn’t here, call or text <a href="tel:+12263889789">(226) 388-9789</a> and you’ll get a straight answer.</p>
       </div>
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,48px">Get started</x-import>
+      <div>
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+          <details class="nx-faq">
+            <summary>{{ f.q }}</summary>
+            <p>{{ f.a }}</p>
+          </details>
+        </sc-for>
+      </div>
     </div>
   </div>
+
+  <!-- ================== CLOSING CTA ================== -->
+  <div class="nx-wrap" style="padding-bottom:clamp(42px,4.6vw,68px);">
+    <div class="nx-endcta">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:560px;">
+        <span class="nx-eyebrow nx-eyebrow-inv">Start here</span>
+        <div class="nx-h2" style="color:#fff;">See if it clicks. It’s free.</div>
+        <p class="nx-body" style="color:var(--text-inverse-muted);font-size:16px;">Tell us the grade and the subject. We’ll match a tutor and book the first session at no cost — usually within a day.</p>
+      </div>
+      <a class="nx-btn" href="Contact.dc.html" style="font-size:15.5px;padding:16px 30px;">Book the free session</a>
+    </div>
+  </div>
+
   <dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;}}">
+// ---------------------------------------------------------------------------
+// Everything on this page is a fact a visitor can act on. Keep it that way —
+// the page reads thin the moment it drifts back into adjectives.
+//
+// Pricing is deliberately absent from this site. Don't add a rate, a range, or
+// a "from $X" anywhere — rates are discussed directly with the family.
+//
+// NEEDS YOUR INPUT:
+//   tutors[].school for Omar and Hamza — university + program.
+//   faqs        — the one marked "CONFIRM" below is my guess, not policy.
+// ---------------------------------------------------------------------------
 class Component extends DCLogic {
   renderVals() {
-    return { showAnnouncement: this.props.showAnnouncement ?? true };
+    return {
+      showAnnouncement: this.props.showAnnouncement ?? true,
+
+      heroPoints: [
+        'One-on-one, matched to the student',
+        'Online anywhere, or in person across the GTA and Niagara',
+        'Evenings and weekends',
+        'Book as you go — no packages, no minimum'
+      ],
+
+      stats: [
+        { value: '19', label: 'Subjects covered' },
+        { value: 'Grades 1–12', label: 'Plus first- and second-year university' },
+        { value: '5 areas', label: 'In person, or online anywhere' },
+        { value: 'Free', label: 'Every student’s first session' }
+      ],
+
+      bands: [
+        { label: 'Elementary & middle', grades: 'Grades 1–8',
+          subjects: ['Math', 'Reading', 'Writing', 'Science', 'English', 'Homework help'] },
+        { label: 'High school', grades: 'Grades 9–12',
+          subjects: ['Math', 'Calculus & Vectors', 'Physics', 'Chemistry', 'Biology', 'English', 'History', 'Exam prep'] },
+        { label: 'University', grades: 'Year 1–2',
+          subjects: ['Calculus', 'First-year math', 'Physics', 'Chemistry', 'Biology'] }
+      ],
+
+      // Single-path SVG icons so the markup stays data-driven. 24x24 grid,
+      // stroke only — a filled icon set would fight the marigold.
+      reasons: [
+        { icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18M12 7.3v5l3.4 2',
+          title: 'They just did this course',
+          body: 'Not a decade ago. They still know which chapter the test leans on and where everyone loses marks.' },
+        { icon: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.3 14.4l1.9 1.9 3.6-3.8',
+          title: 'Taught to the actual curriculum',
+          body: 'Ontario courses, unit by unit — including the ones with a written report or a lab component attached.' },
+        { icon: 'M20 14a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z',
+          title: 'Close enough in age to listen to',
+          body: 'Students say things to someone in their twenties that they will not say to a teacher or a parent.' },
+        { icon: 'M12 3l7 3v5.5c0 4.3-2.9 7.9-7 9.5-4.1-1.6-7-5.2-7-9.5V6zM8.9 12.2l2.2 2.2 4-4.3',
+          title: 'We say no when it isn’t a fit',
+          body: 'If a subject is outside what our tutors know, we tell you instead of guessing with your child’s term.' }
+      ],
+
+      // Never put a tutor's email or phone here — this file is public.
+      tutors: [
+        { initials: 'PF', name: 'Parker Fung-Ernst', school: 'Brock University · Concurrent Education',
+          background: 'Fourth-year teaching student with classroom placements in grade 7 science and K–8 English support, plus five years running science camps.',
+          subjects: ['Math', 'Science', 'English', 'History'],
+          grades: 'Grades 1–10', area: 'St. Catharines or online' },
+        { initials: 'OK', name: 'Omar Kadro', school: 'School to confirm',
+          background: 'Five years teaching youth aged 12–18 through the cadet program, as both a cadet and an adult staff member.',
+          subjects: ['Math', 'Physics', 'Chemistry', 'Biology'],
+          grades: 'Grades 9–12, university year 1–2', area: 'Mississauga, Oakville, Hamilton or online' },
+        { initials: 'HH', name: 'Hamza Hersi', school: 'School to confirm',
+          background: 'Camp counsellor with a knack for keeping younger students engaged, focused on math and physics.',
+          subjects: ['Math', 'Calculus & Vectors', 'Physics'],
+          grades: 'Grades 5–9, university year 1', area: 'Oakville, Toronto or online' }
+      ],
+
+      steps: [
+        { n: '1', title: 'Tell us what’s hard', body: 'The grade, the course, and what’s been going wrong. Takes two minutes.' },
+        { n: '2', title: 'Meet a matched tutor, free', body: 'A full first session with the tutor we think fits. If it doesn’t click, say so and we’ll match someone else.' },
+        { n: '3', title: 'Book as you go', body: 'Weekly through the term, or just before a test. No packages and no minimum.' }
+      ],
+
+      faqs: [
+        { q: 'Is the first session really free?',
+          a: 'Yes — a full one-on-one session with a matched tutor, not a sales call or a 15-minute chat. We don’t ask for payment details to book it, and there’s no obligation afterwards.' },
+        { q: 'Online or in person?',
+          a: 'Both. Online works anywhere. In person, our tutors currently cover Mississauga, Oakville, Toronto, Hamilton and St. Catharines — usually at a library or another public spot. Tell us which you’d prefer and we’ll match accordingly.' },
+        { q: 'Who are the tutors, exactly?',
+          a: 'University students who recently took the courses they teach, and who have real experience working with young people — teaching placements, camp counselling, and youth programs. Every tutor is named on this site with their school and background; you’ll always know who your child is meeting.' },
+        { q: 'How do you match a tutor to my child?',
+          a: 'By subject and grade first, then by schedule, then by fit. If the first match isn’t right, tell us and we’ll try someone else — that’s partly what the free session is for.' },
+        { q: 'What if you don’t cover our subject?',
+          a: 'We’ll say so. We’re a small team and we’d rather turn you away than put your child with someone who’s guessing. Ask and we’ll give you a straight answer.' },
+        // CONFIRM: session length and frequency are my assumption. Correct before publishing.
+        { q: 'How long is a session, and how often?',
+          a: 'Most sessions run an hour, weekly during term. Some students book only around tests instead. We’ll suggest something at the free session and you decide.' }
+      ]
+    };
   }
 }
 </script>
