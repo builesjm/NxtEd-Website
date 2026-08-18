@@ -380,7 +380,9 @@
             <span class="nx-tutor-av" aria-hidden="true">{{ t.initials }}</span>
             <span style="display:flex;flex-direction:column;gap:2px;min-width:0;">
               <span class="nx-h3" style="font-size:17.5px;">{{ t.name }}</span>
-              <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
+              <sc-if value="{{ t.school }}" hint-placeholder-val="{{ true }}">
+                <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
+              </sc-if>
             </span>
           </div>
           <p class="nx-body" style="font-size:14.5px;">{{ t.background }}</p>
@@ -460,7 +462,8 @@
 // a "from $X" anywhere — rates are discussed directly with the family.
 //
 // NEEDS YOUR INPUT:
-//   tutors[].school for Omar and Hamza — university + program.
+//   tutors[].school for Omar and Hamza — university + program. Their cards
+//               render with no school line until then; adding it needs no markup change.
 //   faqs        — the one marked "CONFIRM" below is my guess, not policy.
 // ---------------------------------------------------------------------------
 class Component extends DCLogic {
@@ -509,16 +512,19 @@ class Component extends DCLogic {
       ],
 
       // Never put a tutor's email or phone here — this file is public.
+      // A blank school omits the line entirely (see the sc-if in the markup), so
+      // an unconfirmed tutor reads as deliberate rather than unfinished.
+      // Fill these in when Omar and Hamza confirm university + program.
       tutors: [
         { initials: 'PF', name: 'Parker Fung-Ernst', school: 'Brock University · Concurrent Education',
           background: 'Fourth-year teaching student with classroom placements in grade 7 science and K–8 English support, plus five years running science camps.',
           subjects: ['Math', 'Science', 'English', 'History'],
           grades: 'Grades 1–10', area: 'St. Catharines or online' },
-        { initials: 'OK', name: 'Omar Kadro', school: 'School to confirm',
+        { initials: 'OK', name: 'Omar Kadro', school: '',
           background: 'Five years teaching youth aged 12–18 through the cadet program, as both a cadet and an adult staff member.',
           subjects: ['Math', 'Physics', 'Chemistry', 'Biology'],
           grades: 'Grades 9–12, university year 1–2', area: 'Mississauga, Oakville, Hamilton or online' },
-        { initials: 'HH', name: 'Hamza Hersi', school: 'School to confirm',
+        { initials: 'HH', name: 'Hamza Hersi', school: '',
           background: 'Camp counsellor with a knack for keeping younger students engaged, focused on math and physics.',
           subjects: ['Math', 'Calculus & Vectors', 'Physics'],
           grades: 'Grades 5–9, university year 1', area: 'Oakville, Toronto or online' }

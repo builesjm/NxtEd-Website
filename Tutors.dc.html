@@ -38,7 +38,9 @@
         <div aria-hidden="true" style="flex:none;width:110px;height:110px;border-radius:50%;background:var(--accent-primary);color:var(--color-espresso);font-family:var(--font-display);font-weight:800;font-size:38px;letter-spacing:-1px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-card);">{{ t.initials }}</div>
         <div style="display:flex;flex-direction:column;gap:4px;">
           <div style="font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-0.3px;">{{ t.name }}</div>
-          <div style="font-family:var(--font-display);font-weight:600;font-size:13.5px;color:var(--text-secondary);">{{ t.school }}</div>
+          <sc-if value="{{ t.school }}" hint-placeholder-val="{{ true }}">
+            <div style="font-family:var(--font-display);font-weight:600;font-size:13.5px;color:var(--text-secondary);">{{ t.school }}</div>
+          </sc-if>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
           <sc-for list="{{ t.subjects }}" as="s" hint-placeholder-count="3">
@@ -78,7 +80,7 @@
 // details to be contacted by you, not to be published. Parents reach tutors
 // through the contact form.
 //
-// STILL NEEDED (marked "School to confirm" below):
+// STILL NEEDED (their school field is blank below, so the line is omitted):
 //   - Omar:  university + program
 //   - Hamza: school + program
 // ---------------------------------------------------------------------------
@@ -89,7 +91,7 @@ class Component extends DCLogic {
         {
           initials: 'OK',
           name: 'Omar Kadro',
-          school: 'School to confirm',
+          school: '',
           subjects: ['Math', 'Physics', 'Chemistry', 'Biology'],
           grades: 'Grades 9–12 · University year 1–2',
           area: 'Mississauga and parts of Oakville, plus Hamilton on select weekdays. Online available.'
@@ -97,7 +99,7 @@ class Component extends DCLogic {
         {
           initials: 'HH',
           name: 'Hamza Hersi',
-          school: 'School to confirm',
+          school: '',
           subjects: ['Math', 'Calculus & Vectors', 'Physics'],
           grades: 'Grades 5–9 · University year 1',
           area: 'Oakville and Toronto, in person at a library or online. Weekends.'
