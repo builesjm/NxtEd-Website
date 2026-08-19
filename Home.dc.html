@@ -92,7 +92,7 @@
       box-shadow:inset 0 0 0 1.6px var(--text-primary);}
 
     .nx-head{display:flex;flex-direction:column;gap:11px;margin-bottom:clamp(24px,2.6vw,36px);}
-    .nx-head-row{display:flex;align-items:flex-end;justify-content:space-between;
+    .nx-head-row{display:flex;flex-direction:row;align-items:flex-end;justify-content:space-between;
       gap:24px;flex-wrap:wrap;}
     .nx-more{font-family:var(--font-ui);font-weight:700;font-size:14px;white-space:nowrap;
       color:var(--text-primary);text-decoration:none;border-bottom:2px solid var(--accent-underline);
@@ -174,33 +174,43 @@
       border-radius:999px;padding:5px 12px;text-decoration:none;transition:all .15s ease;}
     a.nx-chip:hover{background:var(--surface-marigold-wash);border-color:var(--accent-primary);}
 
-    /* ---- reason tiles ---- */
-    .nx-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,18px);}
-    .nx-tile{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;
-      padding:20px;display:flex;flex-direction:column;gap:11px;transition:transform .18s ease,box-shadow .18s ease;}
-    .nx-tile:hover{transform:translateY(-3px);box-shadow:0 16px 30px -22px rgba(36,28,21,.55);}
-    .nx-ico{flex:none;width:40px;height:40px;border-radius:12px;background:var(--surface-marigold-wash);
-      color:var(--color-espresso);display:flex;align-items:center;justify-content:center;}
-    .nx-ico svg{width:21px;height:21px;}
+    /* ---- where we teach: real service-area map, pins baked into the image ---- */
+    .nx-where-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,4vw,64px);
+      align-items:center;}
+    .nx-map-panel{background:var(--surface-card);border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-card);overflow:hidden;}
+    .nx-map-panel img{display:block;width:100%;height:auto;}
 
-    /* ---- tutors ---- */
-    .nx-tutors{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);}
-    .nx-tutor{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;
-      padding:22px;display:flex;flex-direction:column;gap:13px;
+    /* ---- tutors: a slow, seamless auto-scrolling carousel. The track
+           renders the tutor list twice back-to-back and scrolls exactly
+           -50%, so the loop point is invisible; the duplicate set is
+           aria-hidden so screen readers only hear each tutor once. ---- */
+    .nx-tutors-viewport{overflow:hidden;padding-top:56px;}
+    .nx-tutors-track{display:flex;gap:clamp(14px,1.6vw,20px);width:max-content;
+      animation:nxTutorsScroll 46s linear infinite;}
+    .nx-tutors-viewport:hover .nx-tutors-track,
+    .nx-tutors-viewport:focus-within .nx-tutors-track{animation-play-state:paused;}
+    @keyframes nxTutorsScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    .nx-tutor{flex:0 0 clamp(260px,30vw,340px);background:var(--surface-card);
+      border:1px solid var(--border-hairline);border-radius:18px;
+      padding:56px 22px 22px;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:10px;position:relative;
       transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
     .nx-tutor:hover{transform:translateY(-3px);border-color:var(--accent-primary);
       box-shadow:0 18px 34px -24px rgba(36,28,21,.55);}
-    .nx-tutor-av{flex:none;width:50px;height:50px;border-radius:50%;background:var(--surface-quiet);
-      color:var(--text-secondary);font-family:var(--font-ui);font-weight:700;font-size:15px;
-      display:flex;align-items:center;justify-content:center;position:relative;
-      border:1.6px dashed var(--text-secondary);}
-    .nx-tutor-av-badge{position:absolute;right:-4px;bottom:-4px;width:19px;height:19px;border-radius:50%;
+    .nx-tutor-av{flex:none;width:96px;height:96px;border-radius:50%;background:var(--surface-quiet);
+      color:var(--text-secondary);font-family:var(--font-ui);font-weight:700;font-size:26px;
+      display:flex;align-items:center;justify-content:center;position:absolute;
+      top:-48px;left:50%;transform:translateX(-50%);
+      border:3px solid var(--accent-primary);box-shadow:0 0 0 4px var(--surface-card);}
+    .nx-tutor-av-badge{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;
       background:var(--accent-primary);color:var(--color-espresso);display:flex;align-items:center;
       justify-content:center;box-shadow:0 0 0 2.5px var(--surface-card);}
-    .nx-tutor-av-badge svg{width:10.5px;height:10.5px;}
-    .nx-meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--border-hairline);
+    .nx-tutor-av-badge svg{width:13px;height:13px;}
+    .nx-tutor-chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+    .nx-meta{margin-top:auto;padding-top:12px;width:100%;border-top:1px solid var(--border-hairline);
       display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px;line-height:1.45;
-      color:var(--text-secondary);font-family:var(--font-body);}
+      color:var(--text-secondary);font-family:var(--font-body);text-align:left;}
     .nx-meta dt{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:0.1em;
       text-transform:uppercase;color:var(--text-secondary);padding-top:2px;}
     .nx-meta dd{margin:0;color:var(--text-primary);}
@@ -246,28 +256,26 @@
     .nx-endcta-photo{flex:none;width:150px;height:118px;border-radius:14px;padding:8px;
       border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);color:var(--text-inverse-muted);}
 
-    @media (max-width:1080px){
-      .nx-tiles{grid-template-columns:repeat(2,1fr);}
-    }
     @media (max-width:900px){
       .nx-hero-grid{grid-template-columns:1fr;gap:34px;padding-top:112px;}
       .nx-hero-art{max-width:520px;}
       .nx-faq-grid{grid-template-columns:1fr;gap:22px;}
-      .nx-tutors{grid-template-columns:1fr;}
       .nx-steps{grid-template-columns:1fr;gap:22px;}
       .nx-step::after{display:none;}
       .nx-stats{grid-template-columns:repeat(2,1fr);gap:20px 0;}
       .nx-stat:nth-child(3){padding-left:0;border-left:none;}
       .nx-subj-grid{grid-template-columns:1fr;}
       .nx-endcta-photo{display:none;}
+      .nx-where-grid{grid-template-columns:1fr;gap:26px;}
     }
     @media (max-width:560px){
-      .nx-tiles{grid-template-columns:1fr;}
       .nx-endcta{padding:28px 22px;}
     }
     @media (prefers-reduced-motion:reduce){
       *{transition:none !important;}
-      .nx-tile:hover,.nx-tutor:hover{transform:none;}
+      .nx-tutor:hover{transform:none;}
+      .nx-tutors-track{animation:none;}
+      .nx-tutors-viewport{overflow-x:auto;}
     }
   </style>
 </helmet>
@@ -342,31 +350,24 @@
     </div>
   </div>
 
-  <!-- ================== WHY A STUDENT TUTOR ================== -->
+  <!-- ================== WHERE WE TEACH ================== -->
   <div class="nx-band">
-    <div class="nx-wrap nx-sect">
-      <div class="nx-head">
-        <span class="nx-eyebrow">Why a student, not an agency</span>
-        <h2 class="nx-h2">Close enough to remember. Far enough to have finished it.</h2>
-        <p class="nx-lead">Our tutors sat the same curriculum recently enough that the details are still sharp — and they’ve worked with young people before, in classrooms, camps and youth programs.</p>
+    <div class="nx-wrap nx-sect nx-where-grid">
+      <div class="nx-head" style="margin-bottom:0;">
+        <span class="nx-eyebrow">Where we teach</span>
+        <h2 class="nx-h2">One tutor away, wherever your child is in the GTA — or online everywhere else.</h2>
+        <p class="nx-lead">In person across Toronto, Mississauga, Oakville, Hamilton and St. Catharines — usually at a library or another public spot. Online, we work with families anywhere.</p>
       </div>
-      <div class="nx-tiles">
-        <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
-          <div class="nx-tile">
-            <span class="nx-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.icon }}"></path></svg>
-            </span>
-            <span class="nx-h3" style="font-size:17px;">{{ r.title }}</span>
-            <span class="nx-body" style="font-size:14.5px;">{{ r.body }}</span>
-          </div>
-        </sc-for>
+
+      <div class="nx-map-panel">
+        <img src="assets/Map.png" alt="Map of the Greater Toronto and Niagara area, marking NxtEd's five tutoring locations: Toronto, Mississauga, Oakville, Hamilton and St. Catharines" width="788" height="548">
       </div>
     </div>
   </div>
 
   <!-- ================== TUTORS ================== -->
   <div class="nx-wrap nx-sect">
-    <div class="nx-head nx-head-row">
+    <div class="nx-head nx-head-row" style="margin-bottom:0;">
       <div style="display:flex;flex-direction:column;gap:11px;">
         <span class="nx-eyebrow">The team</span>
         <h2 class="nx-h2">The people who’ll actually be teaching</h2>
@@ -374,30 +375,49 @@
       </div>
       <a class="nx-more" href="Tutors.dc.html">See all tutors →</a>
     </div>
-    <div class="nx-tutors">
-      <sc-for list="{{ tutors }}" as="t" hint-placeholder-count="3">
-        <div class="nx-tutor">
-          <div style="display:flex;align-items:center;gap:13px;">
+    <div class="nx-tutors-viewport">
+      <div class="nx-tutors-track">
+        <sc-for list="{{ tutors }}" as="t" hint-placeholder-count="5">
+          <div class="nx-tutor">
             <span class="nx-tutor-av" aria-hidden="true" title="Photo placeholder: square headshot, 1:1, plain background">{{ t.initials }}<span class="nx-tutor-av-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3.2L9 5.5h6L16.8 8H20a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13.2" r="3.3"></circle></svg></span></span>
-            <span style="display:flex;flex-direction:column;gap:2px;min-width:0;">
-              <span class="nx-h3" style="font-size:17.5px;">{{ t.name }}</span>
-              <sc-if value="{{ t.school }}" hint-placeholder-val="{{ true }}">
-                <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
-              </sc-if>
-            </span>
+            <span class="nx-h3" style="font-size:17.5px;">{{ t.name }}</span>
+            <sc-if value="{{ t.school }}" hint-placeholder-val="{{ true }}">
+              <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
+            </sc-if>
+            <p class="nx-body" style="font-size:14.5px;">{{ t.background }}</p>
+            <div class="nx-tutor-chips">
+              <sc-for list="{{ t.subjects }}" as="s" hint-placeholder-count="4">
+                <span class="nx-chip" style="font-size:11.5px;padding:4px 10px;">{{ s }}</span>
+              </sc-for>
+            </div>
+            <dl class="nx-meta">
+              <dt>Teaches</dt><dd>{{ t.grades }}</dd>
+              <dt>Where</dt><dd>{{ t.area }}</dd>
+            </dl>
           </div>
-          <p class="nx-body" style="font-size:14.5px;">{{ t.background }}</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <sc-for list="{{ t.subjects }}" as="s" hint-placeholder-count="4">
-              <span class="nx-chip" style="font-size:11.5px;padding:4px 10px;">{{ s }}</span>
-            </sc-for>
+        </sc-for>
+        <!-- Duplicate set, hidden from assistive tech: the track scrolls
+             exactly -50% so this second copy is what makes the loop seamless. -->
+        <sc-for list="{{ tutors }}" as="t" hint-placeholder-count="5">
+          <div class="nx-tutor" aria-hidden="true">
+            <span class="nx-tutor-av" title="Photo placeholder: square headshot, 1:1, plain background">{{ t.initials }}<span class="nx-tutor-av-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3.2L9 5.5h6L16.8 8H20a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13.2" r="3.3"></circle></svg></span></span>
+            <span class="nx-h3" style="font-size:17.5px;">{{ t.name }}</span>
+            <sc-if value="{{ t.school }}" hint-placeholder-val="{{ true }}">
+              <span class="nx-ui" style="font-size:12.5px;color:var(--text-secondary);">{{ t.school }}</span>
+            </sc-if>
+            <p class="nx-body" style="font-size:14.5px;">{{ t.background }}</p>
+            <div class="nx-tutor-chips">
+              <sc-for list="{{ t.subjects }}" as="s" hint-placeholder-count="4">
+                <span class="nx-chip" style="font-size:11.5px;padding:4px 10px;">{{ s }}</span>
+              </sc-for>
+            </div>
+            <dl class="nx-meta">
+              <dt>Teaches</dt><dd>{{ t.grades }}</dd>
+              <dt>Where</dt><dd>{{ t.area }}</dd>
+            </dl>
           </div>
-          <dl class="nx-meta">
-            <dt>Teaches</dt><dd>{{ t.grades }}</dd>
-            <dt>Where</dt><dd>{{ t.area }}</dd>
-          </dl>
-        </div>
-      </sc-for>
+        </sc-for>
+      </div>
     </div>
   </div>
 
@@ -492,23 +512,6 @@ class Component extends DCLogic {
           subjects: ['Calculus', 'First-year math', 'Physics', 'Chemistry', 'Biology'] }
       ],
 
-      // Single-path SVG icons so the markup stays data-driven. 24x24 grid,
-      // stroke only — a filled icon set would fight the marigold.
-      reasons: [
-        { icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18M12 7.3v5l3.4 2',
-          title: 'They just did this course',
-          body: 'Not a decade ago. They still know which chapter the test leans on and where everyone loses marks.' },
-        { icon: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.3 14.4l1.9 1.9 3.6-3.8',
-          title: 'Taught to the actual curriculum',
-          body: 'Ontario courses, unit by unit — including the ones with a written report or a lab component attached.' },
-        { icon: 'M20 14a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z',
-          title: 'Close enough in age to listen to',
-          body: 'Students say things to someone in their twenties that they will not say to a teacher or a parent.' },
-        { icon: 'M12 3l7 3v5.5c0 4.3-2.9 7.9-7 9.5-4.1-1.6-7-5.2-7-9.5V6zM8.9 12.2l2.2 2.2 4-4.3',
-          title: 'We say no when it isn’t a fit',
-          body: 'If a subject is outside what our tutors know, we tell you instead of guessing with your child’s term.' }
-      ],
-
       // Never put a tutor's email or phone here — this file is public.
       // A blank school omits the line entirely (see the sc-if in the markup), so
       // an unconfirmed tutor reads as deliberate rather than unfinished.
@@ -525,7 +528,18 @@ class Component extends DCLogic {
         { initials: 'HH', name: 'Hamza Hersi', school: '',
           background: 'Camp counsellor with a knack for keeping younger students engaged, focused on math and physics.',
           subjects: ['Math', 'Calculus & Vectors', 'Physics'],
-          grades: 'Grades 5–9, university year 1', area: 'Oakville, Toronto or online' }
+          grades: 'Grades 5–9, university year 1', area: 'Oakville, Toronto or online' },
+        // Placeholders so the carousel has more than 3 cards to rotate
+        // through. Swap for real tutors as we onboard them — do not leave
+        // these live on the site once real names are ready.
+        { initials: '+', name: 'We’re hiring our next tutor', school: '',
+          background: 'Applications are open for university students who want to tutor the courses they just aced. Know someone? Send them our way.',
+          subjects: [],
+          grades: 'TBD', area: 'TBD' },
+        { initials: '+', name: 'Another spot open', school: '',
+          background: 'We keep the team small on purpose, but we’re always looking for the right next person to join it.',
+          subjects: [],
+          grades: 'TBD', area: 'TBD' }
       ],
 
       steps: [
