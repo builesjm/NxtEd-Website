@@ -15,16 +15,23 @@
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
   <style>
-    .nx-nav{position:sticky;top:0;z-index:50;background:var(--color-white);border-bottom:1px solid var(--border-hairline);}
+    /* Fixed, not sticky: the nav has no bar of its own — no background, no
+       border, no reserved row in the page's flow. It floats directly on
+       whatever the page's first section paints behind it, and z-index:50
+       keeps it above everything as the page scrolls. Every page's first
+       section adds matching top clearance (.nx-nav-clear) so real content
+       doesn't start out hidden underneath it. */
+    .nx-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;
+      transition:opacity .2s ease;}
+    /* The nav only exists at the very top, floating over the hero. Scroll
+       past it and it disappears entirely rather than turning into a bar —
+       there's no persistent header on this site. */
+    .nx-nav.nx-scrolled{opacity:0;pointer-events:none;}
     /* Must match .nx-wrap on the pages exactly, or the logo drifts out of line
        with the headline below it. Same max-width, same padding, same box model. */
-    .nx-nav-inner{position:relative;box-sizing:border-box;max-width:1640px;margin:0 auto;padding:14px clamp(20px,3.2vw,44px);display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .nx-nav-inner{position:relative;box-sizing:border-box;max-width:1640px;margin:0 auto;padding:8px clamp(20px,3.2vw,44px);display:flex;align-items:center;justify-content:space-between;gap:16px;}
     .nx-logo{display:flex;align-items:center;text-decoration:none;flex:none;}
-    /* The logo is the brand statement in this header, so it is set large enough
-       to actually read: at 80px the NxtEd wordmark stands ~43px tall and the
-       TUTORING line lands at 8px, which is a real reading size rather than a
-       texture. Shrinking this back below ~62px is what makes TUTORING mushy. */
-    .nx-logo img{height:80px;display:block;}
+    .nx-logo img{height:64px;display:block;}
     .nx-links{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);}
     .nx-link{font-family:var(--font-display);font-weight:600;font-size:14px;text-decoration:none;transition:color .15s ease;}
     .nx-link:hover{color:var(--accent-text);}
@@ -36,7 +43,7 @@
          edge with the headline below it. A separate mobile value drifted 2px. */
       /* Smaller on phones — 80px would eat a quarter of a short viewport in a
          sticky bar — but still well above the 62px legibility floor. */
-      .nx-logo img{height:64px;}
+      .nx-logo img{height:52px;}
       .nx-burger{display:inline-flex;}
       .nx-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
         background:var(--color-white);border-bottom:1px solid var(--border-hairline);
@@ -48,7 +55,7 @@
     }
   </style>
 </helmet>
-<div class="nx-nav">
+<div class="nx-nav {{ scrolledClass }}">
   <div class="nx-nav-inner">
     <a class="nx-logo" href="Home.dc.html">
       <!-- Full lockup, TUTORING included. It sets at ~5px tall here, which holds
@@ -72,7 +79,23 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:90},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;about&quot;,&quot;subjects&quot;,&quot;tutors&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { open: false };
+  state = { open: false, scrolled: false };
+
+  componentDidMount() {
+    // The nav only lives at the very top, floating over the hero. Past
+    // ~40px of scroll it fades out entirely rather than turning solid.
+    this.onScroll = () => {
+      const scrolled = window.scrollY > 40;
+      if (scrolled !== this.state.scrolled) this.setState({ scrolled });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
   renderVals() {
     const a = this.props.active ?? '';
     const open = this.state.open;
@@ -83,6 +106,7 @@ class Component extends DCLogic {
     ];
     return {
       openClass: open ? 'nx-open' : '',
+      scrolledClass: this.state.scrolled ? 'nx-scrolled' : '',
       expanded: open ? 'true' : 'false',
       burgerGlyph: open ? '✕' : '☰',
       menuLabel: open ? 'Close menu' : 'Open menu',
