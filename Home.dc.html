@@ -484,8 +484,11 @@ class Component extends DCLogic {
     if (!track) return;
     const half = track.scrollWidth / 2; // list is rendered twice
     if (half > 0) {
-      if (this.tutorOffset >= half) this.tutorOffset -= half;
-      if (this.tutorOffset < 0) this.tutorOffset += half;
+      // A drag can move the offset by more than one `half` in a single
+      // touch event, so wrap with modulo rather than a single subtract —
+      // otherwise a fast/long swipe can push the track past both copies
+      // of the content into empty space (reads as the screen going blank).
+      this.tutorOffset = ((this.tutorOffset % half) + half) % half;
     }
     track.style.transform = `translateX(${-this.tutorOffset}px)`;
   }
