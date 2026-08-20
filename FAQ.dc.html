@@ -3,22 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="SiteNav.dc.html" as="fetch" crossorigin="anonymous">
 <script src="./support.js"></script>
 </head>
 <body>
+<style>
+  #nx-nav-skeleton{position:fixed;top:0;left:0;right:0;z-index:999999;background:transparent;pointer-events:none;}
+  #nx-nav-skeleton .nxskel-inner{position:relative;box-sizing:border-box;max-width:1640px;margin:0 auto;padding:8px clamp(20px,3.2vw,44px);display:flex;align-items:center;}
+  #nx-nav-skeleton .nxskel-logo{display:flex;align-items:center;text-decoration:none;flex:none;pointer-events:auto;}
+  #nx-nav-skeleton .nxskel-logo img{height:64px;display:block;}
+  @media (max-width:820px){
+    #nx-nav-skeleton .nxskel-logo img{height:52px;}
+  }
+</style>
+<div id="nx-nav-skeleton">
+  <div class="nxskel-inner">
+    <a class="nxskel-logo" href="/"><img src="assets/nxted-logo.svg" alt="NxtEd Tutoring"></a>
+  </div>
+</div>
+<script>
+(function(){
+  function navReady(nav){
+    var cta = nav.querySelector('.nx-cta');
+    if (!cta) return false;
+    return !!cta.querySelector('a, button');
+  }
+  function finish(){
+    var sk = document.getElementById('nx-nav-skeleton');
+    if (sk) sk.remove();
+    if (navObserver) navObserver.disconnect();
+    bodyObserver.disconnect();
+  }
+  var settleTimer = null;
+  var navObserver = null;
+  function armSettleCheck(nav){
+    if (settleTimer) clearTimeout(settleTimer);
+    settleTimer = setTimeout(function(){
+      if (navReady(nav)) finish(); else armSettleCheck(nav);
+    }, 250);
+  }
+  function watchNav(nav){
+    navObserver = new MutationObserver(function(){ armSettleCheck(nav); });
+    navObserver.observe(nav, { childList: true, subtree: true, attributes: true });
+    armSettleCheck(nav);
+  }
+  var bodyObserver = new MutationObserver(function(){
+    if (navObserver) return;
+    var nav = document.querySelector('.nx-nav');
+    if (nav) watchNav(nav);
+  });
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
+  setTimeout(finish, 3000);
+})();
+</script>
 <x-dc>
 <helmet>
   <title>FAQ | NxtEd Tutoring</title>
   <meta name="description" content="Answers about the free first session, how tutors are matched, online vs in person, pricing, and cancellations at NxtEd Tutoring.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#FF8200">
   <meta property="og:type" content="website">
   <meta property="og:title" content="FAQ | NxtEd Tutoring">
   <meta property="og:description" content="The questions parents and students ask most, answered.">
   <meta property="og:image" content="assets/nxted-wordmark-primary.png">
-  <link rel="stylesheet" href="assets/nxted.css">
-  <script src="assets/nxted.js" defer></script>
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
+  <link rel="stylesheet" href="assets/nx-design-system.css">
+  <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -69,178 +124,141 @@
   </script>
 </helmet>
 
-<div class="nx-page" data-screen-label="FAQ">
-  <a class="nx-skip" href="#main">Skip to content</a>
-  <dc-import name="SiteNav" active="faq" hint-size="100%,120px"></dc-import>
+<div style="display:flex;flex-direction:column;min-height:100vh;background:var(--surface-page);" data-screen-label="FAQ">
+  <dc-import name="SiteNav" active="faq" hint-size="100%,0"></dc-import>
 
-  <main class="nx-main" id="main">
+  <!-- ================== INTRO ================== -->
+  <div class="nx-wrap nx-sect nx-nav-clear" style="padding-bottom:0;">
+    <div class="nx-head" style="max-width:62ch;">
+      <span class="nx-eyebrow">FAQ</span>
+      <h1 class="nx-h1" style="font-size:clamp(30px,3.9vw,42px);">Questions, answered</h1>
+      <p class="nx-lead">The things parents and students ask most. If yours isn't here, call, text, or email — a real person answers.</p>
+    </div>
+  </div>
 
-    <section class="nx-wrap nx-section nx-section--tight" aria-labelledby="faq-h" style="padding-top:clamp(86px,10vw,100px);">
-      <div class="nx-stack" style="align-items:flex-start;">
-        <span class="nx-badge">FAQ</span>
-        <h1 id="faq-h">Questions, answered</h1>
-        <p class="nx-lead">
-          The things parents and students ask most. If yours isn't here,
-          call, text, or email — a real person answers.
-        </p>
+  <!-- ================== GETTING STARTED ================== -->
+  <div class="nx-wrap nx-sect" style="max-width:900px;">
+    <h2 class="nx-h2" style="font-size:22px;margin-bottom:16px;">Getting started</h2>
+    <div>
+      <details class="nx-faq" open>
+        <summary>Is the first session really free?</summary>
+        <p>Yes — a full one-on-one session with a matched tutor, not a sales call and not a
+        shortened trial. There's no card required and no obligation to continue.</p>
+      </details>
+      <details class="nx-faq">
+        <summary>How do I book?</summary>
+        <p>Fill in the <a href="/contact">contact form</a> with the grade, subject, and
+        what's been hard, or call or text <a href="tel:+12263889789">(226) 388-9789</a>.
+        We'll come back with a tutor match and times.</p>
+      </details>
+      <details class="nx-faq">
+        <summary>What happens in the first session?</summary>
+        <p>The tutor finds out where the student actually is — not where the course says they
+        should be — and works on whatever is most urgent. By the end you'll both have a clear
+        sense of what regular sessions would focus on.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================== SESSIONS ================== -->
+  <div class="nx-band">
+    <div class="nx-wrap nx-sect" style="max-width:900px;">
+      <h2 class="nx-h2" style="font-size:22px;margin-bottom:16px;">Sessions</h2>
+      <div>
+        <details class="nx-faq">
+          <summary>Are sessions online or in person?</summary>
+          <p>Either. Online sessions run over video with a shared whiteboard; in-person sessions
+          are available locally. You can pick when you book, and switch later if something
+          changes.</p>
+        </details>
+        <details class="nx-faq">
+          <summary>How long and how often are sessions?</summary>
+          <p>Both are set with you when you book, based on the grade level and what you're working
+          toward. Younger students usually do better with shorter, more frequent sessions;
+          exam prep often wants longer ones.</p>
+        </details>
+        <details class="nx-faq">
+          <summary>Does a parent need to be there?</summary>
+          <p>Not during the session — most students focus better one-on-one. For younger
+          students we'll check in with you afterward on what we covered and what to watch for.</p>
+        </details>
+        <details class="nx-faq">
+          <summary>Is this homework help, or teaching ahead?</summary>
+          <p>Both, in that order. We start with what's actually due so there's relief, then work
+          on the gap underneath it so the same problem stops coming back.</p>
+        </details>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="nx-wrap" style="padding-bottom:clamp(48px,7vw,72px);">
-      <div class="nx-stack nx-stack--lg">
+  <!-- ================== TUTORS & SUBJECTS ================== -->
+  <div class="nx-wrap nx-sect" style="max-width:900px;">
+    <h2 class="nx-h2" style="font-size:22px;margin-bottom:16px;">Tutors &amp; subjects</h2>
+    <div>
+      <details class="nx-faq">
+        <summary>Who are the tutors?</summary>
+        <p>Accomplished students who recently excelled in the courses they teach — recently
+        enough to remember exactly what was hard about them.
+        <a href="/tutors">Meet them here</a>.</p>
+      </details>
+      <details class="nx-faq">
+        <summary>What if the tutor isn't the right fit?</summary>
+        <p>Tell us and we'll match someone else. That's part of why the intro session is free —
+        so you can find out before you've paid for anything.</p>
+      </details>
+      <details class="nx-faq">
+        <summary>Do you cover my specific course?</summary>
+        <p>Most likely. <a href="/subjects">The subjects page</a> lists the most requested
+        ones, but it isn't the full list — ask about your course and we'll tell you straight
+        whether we have the right tutor for it.</p>
+      </details>
+    </div>
+  </div>
 
-        <div class="nx-stack">
-          <h2 style="font-size:var(--step-2);">Getting started</h2>
-          <div class="nx-faq">
-            <details open>
-              <summary>Is the first session really free?</summary>
-              <div class="nx-faq-body">
-                <p>Yes — a full one-on-one session with a matched tutor, not a sales call and not a
-                shortened trial. There's no card required and no obligation to continue.</p>
-              </div>
-            </details>
-            <details>
-              <summary>How do I book?</summary>
-              <div class="nx-faq-body">
-                <p>Fill in the <a href="Contact.dc.html">contact form</a> with the grade, subject, and
-                what's been hard, or call or text <a href="tel:+12263889789">(226) 388-9789</a>.
-                We'll come back with a tutor match and times.</p>
-              </div>
-            </details>
-            <details>
-              <summary>What happens in the first session?</summary>
-              <div class="nx-faq-body">
-                <p>The tutor finds out where the student actually is — not where the course says they
-                should be — and works on whatever is most urgent. By the end you'll both have a clear
-                sense of what regular sessions would focus on.</p>
-              </div>
-            </details>
-            <!-- TODO (owner): if you can commit to a response time ("we reply within
-                 one business day"), add it here. Parents comparing tutors choose the
-                 one who answers first, and a stated turnaround wins bookings. -->
-          </div>
-        </div>
-
-        <div class="nx-stack">
-          <h2 style="font-size:var(--step-2);">Sessions</h2>
-          <div class="nx-faq">
-            <details>
-              <summary>Are sessions online or in person?</summary>
-              <div class="nx-faq-body">
-                <p>Either. Online sessions run over video with a shared whiteboard; in-person sessions
-                are available locally. You can pick when you book, and switch later if something
-                changes.</p>
-              </div>
-            </details>
-            <details>
-              <summary>How long and how often are sessions?</summary>
-              <div class="nx-faq-body">
-                <p>Both are set with you when you book, based on the grade level and what you're working
-                toward. Younger students usually do better with shorter, more frequent sessions;
-                exam prep often wants longer ones.</p>
-              </div>
-            </details>
-            <details>
-              <summary>Does a parent need to be there?</summary>
-              <div class="nx-faq-body">
-                <p>Not during the session — most students focus better one-on-one. For younger
-                students we'll check in with you afterward on what we covered and what to watch for.</p>
-              </div>
-            </details>
-            <details>
-              <summary>Is this homework help, or teaching ahead?</summary>
-              <div class="nx-faq-body">
-                <p>Both, in that order. We start with what's actually due so there's relief, then work
-                on the gap underneath it so the same problem stops coming back.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="nx-stack">
-          <h2 style="font-size:var(--step-2);">Tutors &amp; subjects</h2>
-          <div class="nx-faq">
-            <details>
-              <summary>Who are the tutors?</summary>
-              <div class="nx-faq-body">
-                <p>Accomplished students who recently excelled in the courses they teach — recently
-                enough to remember exactly what was hard about them.
-                <a href="Tutors.dc.html">Meet them here</a>.</p>
-              </div>
-            </details>
-            <details>
-              <summary>What if the tutor isn't the right fit?</summary>
-              <div class="nx-faq-body">
-                <p>Tell us and we'll match someone else. That's part of why the intro session is free —
-                so you can find out before you've paid for anything.</p>
-              </div>
-            </details>
-            <details>
-              <summary>Do you cover my specific course?</summary>
-              <div class="nx-faq-body">
-                <p>Most likely. <a href="Subjects.dc.html">The subjects page</a> lists the most requested
-                ones, but it isn't the full list — ask about your course and we'll tell you straight
-                whether we have the right tutor for it.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="nx-stack">
-          <h2 style="font-size:var(--step-2);">Pricing &amp; scheduling</h2>
-          <div class="nx-faq">
-            <details>
-              <summary>How much does it cost?</summary>
-              <div class="nx-faq-body">
-                <p>Rates are tailored by grade level, subject, and goals rather than published as one
-                flat list, because a Grade 3 reading session and a third-year calculus session aren't
-                the same work. Tell us the details and you'll get a specific number.
-                <a href="Pricing.dc.html">More on pricing</a>.</p>
-              </div>
-            </details>
-            <details>
-              <summary>When do I pay?</summary>
-              <div class="nx-faq-body">
-                <p>After the free intro session, once you've decided to continue. The rate is confirmed
-                in writing before the first paid session.</p>
-              </div>
-            </details>
-            <details>
-              <summary>What if we need to cancel or reschedule?</summary>
-              <div class="nx-faq-body">
-                <p>Let your tutor know as early as you can and we'll move it. We'd rather reschedule
-                than have a student sit through a session they can't focus in.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="nx-note">
-          <span class="nx-i nx-i-chat" aria-hidden="true"></span>
-          <div class="nx-split" style="flex:1;gap:var(--space-4);">
-            <p><strong>Still have a question?</strong> Call or text (226) 388-9789, or send it over and we'll answer honestly.</p>
-            <a class="nx-btn nx-btn--primary" href="Contact.dc.html">
-              Ask us
-              <span class="nx-i nx-i-arrow" aria-hidden="true"></span>
-            </a>
-          </div>
-        </div>
-
+  <!-- ================== PRICING & SCHEDULING ================== -->
+  <div class="nx-band">
+    <div class="nx-wrap nx-sect" style="max-width:900px;">
+      <h2 class="nx-h2" style="font-size:22px;margin-bottom:16px;">Pricing &amp; scheduling</h2>
+      <div>
+        <details class="nx-faq">
+          <summary>How much does it cost?</summary>
+          <p>Rates are tailored by grade level, subject, and goals rather than published as one
+          flat list, because a Grade 3 reading session and a third-year calculus session aren't
+          the same work. Tell us the details and you'll get a specific number.</p>
+        </details>
+        <details class="nx-faq">
+          <summary>When do I pay?</summary>
+          <p>After the free intro session, once you've decided to continue. The rate is confirmed
+          in writing before the first paid session.</p>
+        </details>
+        <details class="nx-faq">
+          <summary>What if we need to cancel or reschedule?</summary>
+          <p>Let your tutor know as early as you can and we'll move it. We'd rather reschedule
+          than have a student sit through a session they can't focus in.</p>
+        </details>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="nx-section nx-section--dark" aria-labelledby="faq-cta-h">
-      <div class="nx-wrap nx-stack" style="align-items:center;text-align:center;gap:var(--space-5);">
-        <h2 id="faq-cta-h">Start with a free session</h2>
-        <p style="max-width:52ch;">Meet a tutor, set goals, and see the fit. No commitment.</p>
-        <a class="nx-btn nx-btn--primary" href="Contact.dc.html">
-          Book a free intro session
-          <span class="nx-i nx-i-arrow" aria-hidden="true"></span>
-        </a>
+  <!-- ================== STILL HAVE A QUESTION ================== -->
+  <div class="nx-wrap nx-sect" style="max-width:900px;">
+    <div class="nx-card" style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <p class="nx-body" style="font-size:16px;"><strong style="color:var(--text-primary);">Still have a question?</strong> Call or text (226) 388-9789, or send it over and we'll answer honestly.</p>
+      <a class="nx-btn" href="/contact">Ask us</a>
+    </div>
+  </div>
+
+  <!-- ================== CLOSING CTA ================== -->
+  <div class="nx-wrap" style="padding-bottom:clamp(42px,4.6vw,68px);">
+    <div class="nx-endcta">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:52ch;">
+        <h2 class="nx-h2" style="color:#fff;font-size:26px;">Start with a free session</h2>
+        <p class="nx-body" style="color:var(--text-inverse-muted);">Meet a tutor, set goals, and see the fit. No commitment.</p>
       </div>
-    </section>
+      <a class="nx-btn" href="/contact">Book a free intro session</a>
+    </div>
+  </div>
 
-  </main>
   <dc-import name="SiteFooter" hint-size="100%,340px"></dc-import>
 </div>
 </x-dc>

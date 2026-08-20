@@ -57,7 +57,7 @@
 </helmet>
 <div class="nx-nav {{ scrolledClass }}">
   <div class="nx-nav-inner">
-    <a class="nx-logo" href="Home.dc.html">
+    <a class="nx-logo" href="/">
       <!-- Full lockup, TUTORING included. It sets at ~5px tall here, which holds
            because the letters are tracked so wide — measured at nav size, 12 of
            its 13 stems still resolve as separate strokes, and it doubles on any
@@ -71,7 +71,7 @@
         <a class="nx-link" href="{{ l.href }}" style="color:{{ l.color }};" aria-current="{{ l.current }}">{{ l.label }}</a>
       </sc-for>
       <span class="nx-cta">
-        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Contact.dc.html" hint-size="auto,44px">Book a free session</x-import>
+        <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="/contact" hint-size="auto,44px">Book a free session</x-import>
       </span>
     </div>
   </div>
@@ -100,9 +100,9 @@ class Component extends DCLogic {
     const a = this.props.active ?? '';
     const open = this.state.open;
     const items = [
-      ['about', 'About', 'About.dc.html'],
-      ['subjects', 'Subjects', 'Subjects.dc.html'],
-      ['tutors', 'Tutors', 'Tutors.dc.html']
+      ['about', 'About', '/about'],
+      ['subjects', 'Subjects', '/subjects'],
+      ['tutors', 'Tutors', '/tutors']
     ];
     return {
       openClass: open ? 'nx-open' : '',

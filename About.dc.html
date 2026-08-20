@@ -3,9 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="SiteNav.dc.html" as="fetch" crossorigin="anonymous">
 <script src="./support.js"></script>
 </head>
 <body>
+<style>
+  #nx-nav-skeleton{position:fixed;top:0;left:0;right:0;z-index:999999;background:transparent;pointer-events:none;}
+  #nx-nav-skeleton .nxskel-inner{position:relative;box-sizing:border-box;max-width:1640px;margin:0 auto;padding:8px clamp(20px,3.2vw,44px);display:flex;align-items:center;}
+  #nx-nav-skeleton .nxskel-logo{display:flex;align-items:center;text-decoration:none;flex:none;pointer-events:auto;}
+  #nx-nav-skeleton .nxskel-logo img{height:64px;display:block;}
+  @media (max-width:820px){
+    #nx-nav-skeleton .nxskel-logo img{height:52px;}
+  }
+</style>
+<div id="nx-nav-skeleton">
+  <div class="nxskel-inner">
+    <a class="nxskel-logo" href="/"><img src="assets/nxted-logo.svg" alt="NxtEd Tutoring"></a>
+  </div>
+</div>
+<script>
+(function(){
+  function navReady(nav){
+    var cta = nav.querySelector('.nx-cta');
+    if (!cta) return false;
+    return !!cta.querySelector('a, button');
+  }
+  function finish(){
+    var sk = document.getElementById('nx-nav-skeleton');
+    if (sk) sk.remove();
+    if (navObserver) navObserver.disconnect();
+    bodyObserver.disconnect();
+  }
+  var settleTimer = null;
+  var navObserver = null;
+  function armSettleCheck(nav){
+    if (settleTimer) clearTimeout(settleTimer);
+    settleTimer = setTimeout(function(){
+      if (navReady(nav)) finish(); else armSettleCheck(nav);
+    }, 250);
+  }
+  function watchNav(nav){
+    navObserver = new MutationObserver(function(){ armSettleCheck(nav); });
+    navObserver.observe(nav, { childList: true, subtree: true, attributes: true });
+    armSettleCheck(nav);
+  }
+  var bodyObserver = new MutationObserver(function(){
+    if (navObserver) return;
+    var nav = document.querySelector('.nx-nav');
+    if (nav) watchNav(nav);
+  });
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
+  setTimeout(finish, 3000);
+})();
+</script>
 <x-dc>
 <helmet>
   <title>Our Story | NxtEd Tutoring</title>
@@ -17,19 +67,15 @@
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/spacing.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/styles.css">
+  <link rel="stylesheet" href="assets/nx-design-system.css">
   <script src="_ds/nxted-design-system-32cc21cb-5435-4521-b0c7-567ed7be3b38/_ds_bundle.js"></script>
-  <style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);} a{color:var(--accent-text);text-decoration:underline;text-decoration-color:var(--accent-underline);text-decoration-thickness:2px;text-underline-offset:3px;} a:hover{text-decoration-color:var(--accent-underline-hover);}
-    /* Nav is fixed with no bar of its own; this reserves clearance so the
-       first section's content doesn't start out hidden underneath it. */
-    .nx-nav-clear{padding-top:86px;}
-    @media (max-width:820px){.nx-nav-clear{padding-top:72px;}}</style>
 </helmet>
 <div style="display:flex;flex-direction:column;min-height:100vh;background:var(--surface-page);" data-screen-label="About">
-  <dc-import name="SiteNav" active="about" hint-size="100%,72px"></dc-import>
+  <dc-import name="SiteNav" active="about" hint-size="100%,0"></dc-import>
 
   <div class="nx-nav-clear" style="max-width:760px;margin:0 auto;width:100%;box-sizing:border-box;padding-left:clamp(20px,3.2vw,44px);padding-right:clamp(20px,3.2vw,44px);padding-bottom:clamp(20px,2.6vw,30px);display:flex;flex-direction:column;gap:15px;align-items:flex-start;">
-    <span style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-secondary);">Our story</span>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3.9vw,42px);line-height:1.08;letter-spacing:-1px;text-wrap:balance;">Started by students, for students</h1>
+    <span class="nx-eyebrow">Our story</span>
+    <h1 class="nx-h1" style="font-size:clamp(30px,3.9vw,42px);">Started by students, for students</h1>
     <p style="margin:0;font-family:var(--font-body);font-size:clamp(17px,2vw,19px);line-height:1.7;color:var(--text-secondary);text-wrap:pretty;">NxtEd began with a simple observation: the students who do best aren't always the ones who study the most. They're the ones who learned <em>how</em> to study.</p>
   </div>
 
@@ -40,30 +86,30 @@
 
   <div style="background:var(--surface-card);">
     <div style="max-width:1640px;margin:0 auto;box-sizing:border-box;padding:clamp(32px,3.8vw,50px) clamp(20px,3.2vw,44px);display:flex;flex-direction:column;gap:20px;">
-      <h2 style="margin:0;max-width:640px;font-family:var(--font-display);font-weight:800;font-size:clamp(23px,2.5vw,29px);line-height:1.1;letter-spacing:-0.5px;text-wrap:balance;">What we believe</h2>
+      <h2 class="nx-h2" style="max-width:640px;font-size:clamp(23px,2.5vw,29px);">What we believe</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px;">
-        <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:var(--radius-lg,20px);padding:20px 22px;display:flex;flex-direction:column;gap:16px;">
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Knowledge isn't enough</div>
-          <div style="font-family:var(--font-body);font-size:15px;line-height:1.5;color:var(--text-secondary);text-wrap:pretty;">Success isn't just knowing the material. It's the study habits, problem-solving, and confidence behind it. That's what we teach.</div>
+        <div class="nx-card">
+          <span class="nx-h3" style="font-size:20px;display:block;">Knowledge isn't enough</span>
+          <span class="nx-body" style="font-size:15px;">Success isn't just knowing the material. It's the study habits, problem-solving, and confidence behind it. That's what we teach.</span>
         </div>
-        <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:var(--radius-lg,20px);padding:20px 22px;display:flex;flex-direction:column;gap:16px;">
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Students learn best from students</div>
-          <div style="font-family:var(--font-body);font-size:15px;line-height:1.5;color:var(--text-secondary);text-wrap:pretty;">A tutor who sat in the same seat last year explains things the way a classmate would, and shows what's possible.</div>
+        <div class="nx-card">
+          <span class="nx-h3" style="font-size:20px;display:block;">Students learn best from students</span>
+          <span class="nx-body" style="font-size:15px;">A tutor who sat in the same seat last year explains things the way a classmate would, and shows what's possible.</span>
         </div>
-        <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:var(--radius-lg,20px);padding:20px 22px;display:flex;flex-direction:column;gap:16px;">
-          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;">Confidence compounds</div>
-          <div style="font-family:var(--font-body);font-size:15px;line-height:1.5;color:var(--text-secondary);text-wrap:pretty;">One good session becomes a good week. Small wins stack up until a hard subject stops feeling hard.</div>
+        <div class="nx-card">
+          <span class="nx-h3" style="font-size:20px;display:block;">Confidence compounds</span>
+          <span class="nx-body" style="font-size:15px;">One good session becomes a good week. Small wins stack up until a hard subject stops feeling hard.</span>
         </div>
       </div>
     </div>
   </div>
 
   <div style="max-width:1640px;margin:0 auto;width:100%;box-sizing:border-box;padding:clamp(30px,3.6vw,44px) clamp(20px,3.2vw,44px);display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;">
-    <h2 style="margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(22px,2.4vw,28px);line-height:1.12;letter-spacing:-0.5px;">Meet the people behind it</h2>
+    <h2 class="nx-h2" style="font-size:clamp(22px,2.4vw,28px);">Meet the people behind it</h2>
     <p style="margin:0;font-family:var(--font-body);font-size:16.5px;line-height:1.6;color:var(--text-secondary);max-width:480px;text-wrap:pretty;">Every NxtEd tutor is an accomplished student first. See who they are and what they teach.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="Tutors.dc.html" hint-size="auto,48px">Meet the tutors</x-import>
-      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" variant="secondary" href="Contact.dc.html" hint-size="auto,48px">Book a free intro session</x-import>
+      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" href="/tutors" hint-size="auto,48px">Meet the tutors</x-import>
+      <x-import component-from-global-scope="NxtEdDesignSystem_32cc21.Button" variant="secondary" href="/contact" hint-size="auto,48px">Book a free intro session</x-import>
     </div>
   </div>
   <dc-import name="SiteFooter" hint-size="100%,320px"></dc-import>

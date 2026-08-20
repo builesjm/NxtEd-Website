@@ -1,5 +1,10 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/Home.dc.html" }
+    { "source": "/", "destination": "/Home.dc.html" },
+    { "source": "/about", "destination": "/About.dc.html" },
+    { "source": "/contact", "destination": "/Contact.dc.html" },
+    { "source": "/subjects", "destination": "/Subjects.dc.html" },
+    { "source": "/tutors", "destination": "/Tutors.dc.html" },
+    { "source": "/faq", "destination": "/FAQ.dc.html" }
   ]
 }

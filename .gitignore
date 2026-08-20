@@ -1,2 +1,4 @@
 # Local Claude Code config and worktrees - not part of the site.
 .claude/
+.vercel
+.env*
