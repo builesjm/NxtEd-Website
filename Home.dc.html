@@ -142,7 +142,7 @@
            keyframes) so the arrows can nudge the same running offset without
            ever pausing the spin. The track renders the list twice; the loop
            wraps at exactly half its scrollWidth, so it's seamless. ---- */
-    .nx-tutors-wrap{position:relative;width:100%;max-width:100%;}
+    .nx-tutors-wrap{position:relative;width:100%;max-width:100%;touch-action:pan-y;}
     .nx-tutors-viewport{overflow:hidden;padding-top:56px;width:100%;max-width:100%;}
     .nx-tutors-track{display:flex;gap:clamp(14px,1.6vw,20px);width:max-content;will-change:transform;}
     .nx-tutors-arrow{position:absolute;top:calc(50% + 28px);transform:translateY(-50%);
@@ -416,6 +416,13 @@ class Component extends DCLogic {
     if (this.tutorsWrap) {
       this.tutorsWrap.addEventListener('mouseenter', this.pauseTutors);
       this.tutorsWrap.addEventListener('mouseleave', this.resumeTutors);
+      // Touch: a finger on the strip pauses the spin and drags the track
+      // 1:1 with the finger, same as the hover-pause does for a cursor.
+      // Vertical finger movement is left alone so the page can still scroll.
+      this.tutorsWrap.addEventListener('touchstart', this.onTutorTouchStart, { passive: true });
+      this.tutorsWrap.addEventListener('touchmove', this.onTutorTouchMove, { passive: false });
+      this.tutorsWrap.addEventListener('touchend', this.onTutorTouchEnd);
+      this.tutorsWrap.addEventListener('touchcancel', this.onTutorTouchEnd);
     }
   }
   componentWillUnmount() {
@@ -423,6 +430,10 @@ class Component extends DCLogic {
     if (this.tutorsWrap) {
       this.tutorsWrap.removeEventListener('mouseenter', this.pauseTutors);
       this.tutorsWrap.removeEventListener('mouseleave', this.resumeTutors);
+      this.tutorsWrap.removeEventListener('touchstart', this.onTutorTouchStart);
+      this.tutorsWrap.removeEventListener('touchmove', this.onTutorTouchMove);
+      this.tutorsWrap.removeEventListener('touchend', this.onTutorTouchEnd);
+      this.tutorsWrap.removeEventListener('touchcancel', this.onTutorTouchEnd);
     }
   }
   pauseTutors = () => {
@@ -433,6 +444,32 @@ class Component extends DCLogic {
     if (this.tutorsReduceMotion || this.tutorRafId) return;
     this.tutorLastTime = null;
     this.tutorRafId = requestAnimationFrame(this.tickTutors);
+  }
+  onTutorTouchStart = (e) => {
+    if (!e.touches || e.touches.length !== 1) return;
+    this.pauseTutors();
+    this.tutorTouchStartX = e.touches[0].clientX;
+    this.tutorTouchStartY = e.touches[0].clientY;
+    this.tutorTouchStartOffset = this.tutorOffset;
+    this.tutorTouchLocked = null; // undecided until the finger moves enough to tell
+  }
+  onTutorTouchMove = (e) => {
+    if (this.tutorTouchStartX == null || !e.touches || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - this.tutorTouchStartX;
+    const dy = e.touches[0].clientY - this.tutorTouchStartY;
+    if (this.tutorTouchLocked == null) {
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      this.tutorTouchLocked = Math.abs(dx) > Math.abs(dy);
+    }
+    if (!this.tutorTouchLocked) return; // vertical gesture — let the page scroll
+    e.preventDefault();
+    this.tutorOffset = this.tutorTouchStartOffset - dx;
+    this.applyTutorOffset();
+  }
+  onTutorTouchEnd = () => {
+    this.tutorTouchStartX = null;
+    this.tutorTouchLocked = null;
+    this.resumeTutors();
   }
   tickTutors = (time) => {
     if (this.tutorLastTime == null) this.tutorLastTime = time;
