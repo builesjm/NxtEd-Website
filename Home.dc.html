@@ -142,7 +142,7 @@
            keyframes) so the arrows can nudge the same running offset without
            ever pausing the spin. The track renders the list twice; the loop
            wraps at exactly half its scrollWidth, so it's seamless. ---- */
-    .nx-tutors-wrap{position:relative;width:100%;max-width:100%;touch-action:pan-y;}
+    .nx-tutors-wrap{position:relative;width:100%;max-width:100%;touch-action:pan-y;overscroll-behavior-x:contain;}
     .nx-tutors-viewport{overflow:hidden;padding-top:56px;width:100%;max-width:100%;}
     .nx-tutors-track{display:flex;gap:clamp(14px,1.6vw,20px);width:max-content;will-change:transform;}
     .nx-tutors-arrow{position:absolute;top:calc(50% + 28px);transform:translateY(-50%);

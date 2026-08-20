@@ -27,12 +27,14 @@
    used below (--font-body, --accent-primary, --surface-page, etc.).
    ===================================================================== */
 
-/* Without this, a touch drag that isn't fully captured by a component
-   (e.g. the tutors carousel) can rubber-band the whole PAGE horizontally
-   on mobile Safari, revealing blank space past the page's real edge. */
-html{overflow-x:hidden;}
+/* Stops a touch drag that isn't fully captured by a component (e.g. the
+   tutors carousel) from rubber-banding the whole PAGE horizontally on
+   mobile Safari and revealing blank space past the page's real edge.
+   overscroll-behavior (not overflow:hidden) so it doesn't disturb how
+   `scroll` events fire, which the fixed nav's fade-on-scroll relies on. */
+html{overscroll-behavior-x:none;}
 body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-primary);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  -webkit-font-smoothing:antialiased;overscroll-behavior-x:none;}
 a{color:var(--accent-text);text-decoration:underline;text-decoration-color:var(--accent-underline);
   text-decoration-thickness:2px;text-underline-offset:3px;}
 a:hover{text-decoration-color:var(--accent-underline-hover);}
